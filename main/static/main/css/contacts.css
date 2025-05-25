@@ -1,0 +1,538 @@
+/* Підключення AOS анімацій */
+@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+
+/* Базові стилі */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    border-radius: 2px;
+}
+
+/* Hero секція */
+.contacts-hero {
+    background: linear-gradient(135deg, var(--beige-light), var(--white));
+    padding: 4rem 0 2rem;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.title-prefix {
+    display: block;
+    font-size: 1rem;
+    color: var(--purple);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.title-main {
+    display: block;
+    color: var(--navy);
+    font-family: 'Viaoda Libre', serif;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-dark);
+    margin-bottom: 2rem;
+}
+
+/* Контакти та форма */
+.contact-section {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* Контактна інформація */
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--beige-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.contact-method:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.method-icon {
+    font-size: 2rem;
+    background: var(--purple);
+    color: var(--white);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.method-content h3 {
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.method-content p {
+    color: var(--gray-dark);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-link {
+    color: var(--purple);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.contact-link:hover {
+    color: var(--purple-dark);
+}
+
+.contact-note {
+    font-size: 0.85rem;
+    color: var(--gray);
+    font-style: italic;
+}
+
+/* Графік роботи */
+.schedule {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.schedule h3 {
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.schedule-item.emergency {
+    color: var(--purple);
+    font-weight: 600;
+    border-top: 1px solid var(--gray-light);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.day {
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.time {
+    color: var(--gray-dark);
+}
+
+/* Форма заявки */
+.contact-form-section {
+    background: var(--beige-light);
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    padding: 12px 16px;
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--navy);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(188, 169, 224, 0.2);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-light);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked+.checkbox-custom {
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+input[type="checkbox"]:checked+.checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 0.8rem;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-text {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+.privacy-link {
+    color: var(--purple);
+    text-decoration: none;
+}
+
+.form-submit {
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(188, 169, 224, 0.4);
+}
+
+.submit-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Переваги співпраці */
+.cooperation-advantages {
+    padding: 4rem 0;
+    background: var(--white-soft);
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.advantage-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.advantage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.advantage-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+.advantage-card h3 {
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.advantage-card p {
+    color: var(--gray-dark);
+    font-size: 0.9rem;
+}
+
+/* FAQ */
+.faq-section {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--beige-light);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.faq-question:hover {
+    background: var(--beige);
+}
+
+.faq-question h3 {
+    color: var(--navy);
+    font-weight: 600;
+    margin: 0;
+}
+
+.faq-toggle {
+    font-size: 1.5rem;
+    color: var(--purple);
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 1.5rem;
+    max-height: 200px;
+}
+
+.faq-answer p {
+    color: var(--gray-dark);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Екстрений контакт */
+.emergency-contact {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: var(--white);
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.emergency-content h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.emergency-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.emergency-button {
+    background: var(--white);
+    color: #ff6b6b;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.emergency-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивність */
+@media (max-width: 1024px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .advantages-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .contact-method {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .method-icon {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .contact-form-section {
+        padding: 1.5rem;
+    }
+
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-question {
+        padding: 1rem;
+    }
+
+    .faq-answer {
+        padding: 0 1rem;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 1rem;
+    }
+}
+
+/* iOS Safari специфічні виправлення */
+@supports (-webkit-touch-callout: none) {
+
+    .contact-method:hover,
+    .advantage-card:hover {
+        transform: none;
+    }
+}

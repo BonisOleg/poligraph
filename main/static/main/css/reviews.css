@@ -1,0 +1,851 @@
+/* Підключення AOS анімацій */
+@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+
+/* Базові стилі */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    border-radius: 2px;
+}
+
+/* Hero секція */
+.reviews-hero {
+    background: linear-gradient(135deg, var(--beige-light), var(--white));
+    padding: 4rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.reviews-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(188, 169, 224, 0.1), transparent),
+        radial-gradient(circle at 70% 20%, rgba(241, 227, 211, 0.2), transparent);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.title-prefix {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--purple);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.title-main {
+    display: block;
+    color: var(--navy);
+    font-family: 'Viaoda Libre', serif;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--gray-dark);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Trust badges */
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    padding: 1rem 1.5rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: float 4s ease-in-out infinite;
+}
+
+.trust-item:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.trust-item:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.trust-item:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.trust-icon {
+    font-size: 1.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.trust-text {
+    font-weight: 600;
+    color: var(--navy);
+    white-space: nowrap;
+}
+
+/* Статистика */
+.reviews-stats {
+    padding: 4rem 0;
+    background: var(--white-soft);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(188, 169, 224, 0.1), transparent);
+    transition: left 0.8s ease;
+}
+
+.stat-card:hover::before {
+    left: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--purple);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(188, 169, 224, 0.3);
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-description {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+/* Відгуки клієнтів */
+.client-reviews {
+    padding: 5rem 0;
+    background: var(--white);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.review-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.review-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover::before {
+    transform: scaleX(1);
+}
+
+.review-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    border-color: var(--purple-light);
+}
+
+/* Review header */
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.5rem;
+}
+
+.reviewer-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+}
+
+.reviewer-service {
+    font-size: 0.9rem;
+    color: var(--purple);
+    font-weight: 600;
+}
+
+.review-rating {
+    display: flex;
+    gap: 0.2rem;
+}
+
+.star {
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.star.filled {
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.star:not(.filled) {
+    color: var(--gray-light);
+}
+
+/* Review content */
+.review-content {
+    margin-bottom: 1.5rem;
+}
+
+.review-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    font-style: italic;
+    position: relative;
+}
+
+.review-text::before {
+    content: '"';
+    font-size: 4rem;
+    color: var(--purple-light);
+    position: absolute;
+    top: -10px;
+    left: -15px;
+    font-family: serif;
+    line-height: 1;
+    opacity: 0.3;
+}
+
+/* Review footer */
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+.review-date {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+.review-verified {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--purple);
+    font-weight: 600;
+}
+
+.verified-icon {
+    background: var(--purple);
+    color: var(--white);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}
+
+/* Переваги довіри */
+.why-trust {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--beige-light), var(--beige));
+}
+
+.trust-reasons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.reason-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 5px solid var(--purple);
+}
+
+.reason-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.reason-icon {
+    font-size: 2.5rem;
+    background: var(--purple);
+    color: var(--white);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    animation: rotate 6s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.reason-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.reason-content p {
+    color: var(--gray-dark);
+    line-height: 1.6;
+}
+
+/* Форма відгуку */
+.leave-review {
+    padding: 5rem 0;
+    background: var(--white-soft);
+}
+
+.review-form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.form-description {
+    text-align: center;
+    color: var(--gray-dark);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    padding: 12px 16px;
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--navy);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(188, 169, 224, 0.2);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Rating input */
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.rating-input input[type="radio"] {
+    display: none;
+}
+
+.star-label {
+    font-size: 2rem;
+    color: var(--gray-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.star-label:hover,
+.rating-input input[type="radio"]:checked~.star-label,
+.star-label:hover~.star-label {
+    color: #ffd700;
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Checkbox */
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-light);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked+.checkbox-custom {
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+input[type="checkbox"]:checked+.checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 0.8rem;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-text {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+.privacy-link {
+    color: var(--purple);
+    text-decoration: none;
+}
+
+/* Submit button */
+.form-submit {
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(188, 169, 224, 0.4);
+}
+
+.submit-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* CTA секція */
+.reviews-cta {
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cta-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cta-btn.primary {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: var(--white);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--purple-light);
+}
+
+.cta-btn.tertiary {
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивність */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .trust-badges {
+        gap: 1rem;
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .reason-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .title-prefix {
+        font-size: 1rem;
+    }
+
+    .trust-badges {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .review-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .review-form-wrapper {
+        padding: 2rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews-hero {
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .trust-item {
+        padding: 0.75rem 1rem;
+    }
+
+    .trust-text {
+        font-size: 0.9rem;
+    }
+
+    .stat-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .review-card {
+        padding: 1.5rem;
+    }
+
+    .reason-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .review-form-wrapper {
+        padding: 1.5rem;
+        margin: 0 10px;
+    }
+
+    .rating-input {
+        justify-content: center;
+    }
+
+    .star-label {
+        font-size: 1.8rem;
+    }
+}
+
+/* iOS Safari специфічні виправлення */
+@supports (-webkit-touch-callout: none) {
+
+    .stat-card:hover,
+    .review-card:hover,
+    .reason-item:hover {
+        transform: none;
+    }
+
+    .trust-item:hover,
+    .cta-btn:hover {
+        transform: none;
+    }
+}
+
+/* Покращення анімацій для мобільних пристроїв */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
