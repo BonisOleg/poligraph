@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Поліграф - Професійні послуги{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/home.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <!-- Зображення в лівій частині -->
+    <div class="image-section">
+        <img src="{% static 'main/images/polygraph-device.jpg' %}" alt="Апарат поліграфа" class="device-image">
+    </div>
+
+    <!-- Заголовок ПОЛІГРАФ -->
+    <div class="title-section">
+        <h1 class="main-title">ПОЛІГРАФ</h1>
+
+        <!-- Анімована ЕКГ лінія -->
+        <div class="ecg-container">
+            <div class="ecg-line">
+                <svg class="ecg-svg" viewBox="0 0 800 100" preserveAspectRatio="none">
+                    <path class="ecg-path" d="M0,50 L480,50 L485,20 L490,80 L495,50 L500,30 L505,70 L510,50 L800,50"
+                        stroke="#BCA9E0" stroke-width="3" fill="none" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'main/js/home.js' %}"></script>
+{% endblock %}

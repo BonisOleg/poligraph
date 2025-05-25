@@ -1,0 +1,269 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Про мене - Сертифікований поліграфолог з 15-річним досвідом{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero секція -->
+<section class="about-hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-prefix">Знайомтесь</span>
+                    <span class="title-main">Ваш експерт з поліграфії</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Понад {{ experience_years }} років професійного досвіду в галузі поліграфології.
+                    Член Національної Асоціації Поліграфологів України.
+                    Провів більше {{ cases_completed }} успішних перевірок з точністю {{ accuracy_rate }}%.
+                </p>
+
+                <div class="hero-badges">
+                    <div class="badge">
+                        <span class="badge-icon">🏅</span>
+                        <span class="badge-text">Сертифікований експерт</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">🔬</span>
+                        <span class="badge-text">Офіційний дилер Rubicon</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">⚖️</span>
+                        <span class="badge-text">Юридично значущі результати</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="{% static 'main/images/polygraph-expert.jpg' %}" alt="Професійний поліграфолог"
+                        class="expert-photo">
+                    <div class="image-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Статистика досягнень -->
+<section class="achievements">
+    <div class="container">
+        <div class="achievements-grid">
+            <div class="achievement-item" data-count="{{ experience_years }}">
+                <div class="achievement-number">{{ experience_years }}+</div>
+                <div class="achievement-label">років досвіду</div>
+                <div class="achievement-description">Професійна діяльність у сфері поліграфології</div>
+            </div>
+
+            <div class="achievement-item" data-count="{{ cases_completed }}">
+                <div class="achievement-number">{{ cases_completed }}+</div>
+                <div class="achievement-label">проведених перевірок</div>
+                <div class="achievement-description">Успішно завершених справ</div>
+            </div>
+
+            <div class="achievement-item" data-count="{{ accuracy_rate }}">
+                <div class="achievement-number">{{ accuracy_rate }}%</div>
+                <div class="achievement-label">точність результатів</div>
+                <div class="achievement-description">Підтверджена практикою</div>
+            </div>
+
+            <div class="achievement-item" data-count="100">
+                <div class="achievement-number">100%</div>
+                <div class="achievement-label">конфіденційність</div>
+                <div class="achievement-description">Гарантована анонімність</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Сертифікати та освіта -->
+<section class="certifications">
+    <div class="container">
+        <h2 class="section-title">Освіта та сертифікати</h2>
+
+        <div class="certifications-timeline">
+            {% for cert in certifications %}
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="timeline-marker">
+                    <span class="timeline-year">{{ cert.year }}</span>
+                </div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">{{ cert.title }}</h3>
+                    <p class="timeline-organization">{{ cert.organization }}</p>
+                    <p class="timeline-description">{{ cert.description }}</p>
+
+                    <div class="certificate-badge">
+                        <span class="badge-check">✓</span>
+                        <span>Верифіковано</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Чому обирають мене -->
+<section class="why-choose">
+    <div class="container">
+        <h2 class="section-title">Чому клієнти обирають мене?</h2>
+
+        <div class="reasons-grid">
+            <div class="reason-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="reason-icon">🎯</div>
+                <h3>Індивідуальний підхід</h3>
+                <p>Кожна справа унікальна. Розробляю персональну стратегію для досягнення максимально точних результатів
+                    у вашій ситуації.</p>
+            </div>
+
+            <div class="reason-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="reason-icon">🔒</div>
+                <h3>Абсолютна конфіденційність</h3>
+                <p>Гарантую повну анонімність. Всі дані захищені, результати передаються виключно клієнту. Підписуємо
+                    угоду про нерозголошення.</p>
+            </div>
+
+            <div class="reason-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="reason-icon">⚡</div>
+                <h3>Швидкість та ефективність</h3>
+                <p>Результати отримуєте протягом 24 годин. Детальний письмовий звіт з висновками та рекомендаціями.</p>
+            </div>
+
+            <div class="reason-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="reason-icon">🏛️</div>
+                <h3>Юридична значущість</h3>
+                <p>Висновки мають юридичну силу та можуть використовуватися в судових процесах. Офіційне оформлення
+                    документів.</p>
+            </div>
+
+            <div class="reason-card" data-aos="zoom-in" data-aos-delay="500">
+                <div class="reason-icon">🤝</div>
+                <h3>Психологічна підтримка</h3>
+                <p>Розумію складність ситуацій. Надаю психологічну підтримку до, під час та після проведення перевірки.
+                </p>
+            </div>
+
+            <div class="reason-card" data-aos="zoom-in" data-aos-delay="600">
+                <div class="reason-icon">🌍</div>
+                <h3>Виїзд по всій Україні</h3>
+                <p>Проводжу перевірки в зручному для вас місці. Маю досвід роботи з різними регіонами України.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Процес роботи -->
+<section class="work-process">
+    <div class="container">
+        <h2 class="section-title">Як проходить перевірка?</h2>
+
+        <div class="process-steps">
+            <div class="step-item" data-aos="fade-right" data-aos-delay="100">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>Попередня консультація</h3>
+                    <p>Безкоштовно обговорюємо вашу ситуацію, пояснюю процедуру, відповідаю на всі питання. Повна
+                        конфіденційність гарантована.</p>
+                </div>
+            </div>
+
+            <div class="step-item" data-aos="fade-left" data-aos-delay="200">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>Підготовка до тестування</h3>
+                    <p>Складаємо перелік питань, пояснюю принципи роботи поліграфа, створюю комфортні умови для
+                        проведення перевірки.</p>
+                </div>
+            </div>
+
+            <div class="step-item" data-aos="fade-right" data-aos-delay="300">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>Проведення тестування</h3>
+                    <p>Використовую сучасне обладнання Rubicon. Тривалість 1-2 години. Можливість відеофіксації процесу.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step-item" data-aos="fade-left" data-aos-delay="400">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                    <h3>Аналіз та звіт</h3>
+                    <p>Детальний аналіз результатів, підготовка письмового висновку з рекомендаціями. Додаткова
+                        консультація при потребі.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Гарантії та принципи -->
+<section class="guarantees">
+    <div class="container">
+        <h2 class="section-title">Мої принципи роботи</h2>
+
+        <div class="principles-list">
+            <div class="principle-item" data-aos="slide-up" data-aos-delay="100">
+                <div class="principle-icon">⚖️</div>
+                <div class="principle-content">
+                    <h3>Незалежність</h3>
+                    <p>Об'єктивність та неупередженість у будь-якій справі. Результати базуються виключно на наукових
+                        даних.</p>
+                </div>
+            </div>
+
+            <div class="principle-item" data-aos="slide-up" data-aos-delay="200">
+                <div class="principle-icon">🛡️</div>
+                <div class="principle-content">
+                    <h3>Етичність</h3>
+                    <p>Дотримуюся найвищих етичних стандартів професії. Повага до гідності кожної людини.</p>
+                </div>
+            </div>
+
+            <div class="principle-item" data-aos="slide-up" data-aos-delay="300">
+                <div class="principle-icon">🔬</div>
+                <div class="principle-content">
+                    <h3>Науковий підхід</h3>
+                    <p>Використовую лише перевірені методики та сучасне обладнання. Постійно підвищую кваліфікацію.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Контакт CTA -->
+<section class="contact-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Готові розпочати?</h2>
+            <p>Безкоштовна консультація допоможе визначити найкращий підхід до вашої ситуації</p>
+
+            <div class="cta-buttons">
+                <a href="tel:+380673456789" class="cta-btn primary">
+                    📞 Зателефонувати зараз
+                </a>
+                <a href="{% url 'contacts' %}" class="cta-btn secondary">
+                    ✉️ Залишити заявку
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'main/js/about.js' %}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+{% endblock %}

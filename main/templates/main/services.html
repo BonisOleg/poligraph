@@ -1,0 +1,183 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Послуги поліграфолога - Професійна перевірка на детекторі брехні{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Герой секція -->
+<section class="services-hero">
+    <div class="hero-background">
+        <div class="ecg-animation">
+            <svg class="ecg-line" viewBox="0 0 1200 200" preserveAspectRatio="none">
+                <path class="ecg-path" d="M0,100 L200,100 L220,80 L240,120 L260,40 L280,160 L300,100 L1200,100" />
+            </svg>
+        </div>
+    </div>
+    <div class="hero-content">
+        <div class="container">
+            <h1 class="hero-title">
+                <span class="title-highlight">Професійні послуги</span>
+                <span class="title-main">поліграфолога</span>
+            </h1>
+            <p class="hero-subtitle">
+                ✅ Сертифікований експерт<br>
+                ✅ Понад 15 років досвіду<br>
+                ✅ Гарантія точності 98%
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1500+</span>
+                    <span class="stat-label">успішних перевірок</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">точність результатів</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">років досвіду</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Бігуча строка -->
+<div class="ticker-wrapper">
+    <div class="ticker">
+        <span>🏅 Сертифікований член НАП України</span>
+        <span>🔬 Обладнання Rubicon Professional</span>
+        <span>⚖️ Юридично значущі результати</span>
+        <span>🔒 Повна конфіденційність</span>
+        <span>📱 Цілодобова консультація</span>
+        <span>💯 Гарантія якості</span>
+    </div>
+</div>
+
+<!-- Послуги -->
+<section class="services-grid">
+    <div class="container">
+        <h2 class="section-title">Наші послуги</h2>
+
+        <div class="services-list">
+            {% for service in services_list %}
+            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="service-icon">{{ service.icon }}</div>
+
+                <div class="service-content">
+                    <h3 class="service-title">{{ service.title }}</h3>
+                    <p class="service-description">{{ service.description }}</p>
+
+                    <div class="service-features">
+                        {% for feature in service.features %}
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            <span>{{ feature }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="service-pricing">
+                    <div class="price-main">{{ service.price }}</div>
+                    {% if service.extended_price %}
+                    <div class="price-extended">{{ service.extended_price }}</div>
+                    {% endif %}
+                    {% if service.discount %}
+                    <div class="price-discount">🎯 {{ service.discount }}</div>
+                    {% endif %}
+
+                    <a href="{% url 'contacts' %}" class="service-button">
+                        Замовити послугу
+                        <span class="button-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Переваги -->
+<section class="advantages">
+    <div class="container">
+        <h2 class="section-title">Чому обирають нас?</h2>
+
+        <div class="advantages-grid">
+            <div class="advantage-item" data-aos="zoom-in" data-aos-delay="100">
+                <div class="advantage-icon">🏆</div>
+                <h3>Сертифікація</h3>
+                <p>Офіційний член Національної Асоціації Поліграфологів України</p>
+            </div>
+
+            <div class="advantage-item" data-aos="zoom-in" data-aos-delay="200">
+                <div class="advantage-icon">🔬</div>
+                <h3>Сучасне обладнання</h3>
+                <p>Новітні поліграфи Rubicon з максимальною точністю</p>
+            </div>
+
+            <div class="advantage-item" data-aos="zoom-in" data-aos-delay="300">
+                <div class="advantage-icon">🔒</div>
+                <h3>Конфіденційність</h3>
+                <p>Гарантуємо повну анонімність та захист персональних даних</p>
+            </div>
+
+            <div class="advantage-item" data-aos="zoom-in" data-aos-delay="400">
+                <div class="advantage-icon">⚡</div>
+                <h3>Швидкий результат</h3>
+                <p>Отримуєте детальний звіт протягом 24 годин</p>
+            </div>
+
+            <div class="advantage-item" data-aos="zoom-in" data-aos-delay="500">
+                <div class="advantage-icon">💯</div>
+                <h3>Висока точність</h3>
+                <p>98% точність результатів підтверджена сотнями перевірок</p>
+            </div>
+
+            <div class="advantage-item" data-aos="zoom-in" data-aos-delay="600">
+                <div class="advantage-icon">🏢</div>
+                <h3>Виїзд до клієнта</h3>
+                <p>Проводимо перевірки в зручному для вас місці</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Швидкий контакт -->
+<section class="quick-contact">
+    <div class="container">
+        <div class="contact-content">
+            <h2>Потрібна консультація?</h2>
+            <p>Безкоштовно проконсультуємо та розрахуємо вартість</p>
+
+            <div class="contact-buttons">
+                <a href="tel:+380673456789" class="contact-btn primary">
+                    📞 Зателефонувати зараз
+                </a>
+                <a href="https://t.me/polygraph_kyiv" class="contact-btn telegram" target="_blank">
+                    📱 Написати в Telegram
+                </a>
+                <a href="{% url 'contacts' %}" class="contact-btn secondary">
+                    ✉️ Залишити заявку
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'main/js/services.js' %}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+{% endblock %}

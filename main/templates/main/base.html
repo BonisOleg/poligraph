@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Поліграф - Професійні послуги{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'main/images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'main/images/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/images/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'main/images/site.webmanifest' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Header з меню -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="{% url 'home' %}" class="logo-link">
+                    <img src="{% static 'main/images/logo.png' %}" alt="Поліграф" class="logo-image">
+                </a>
+            </div>
+
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}"
+                            class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                            Головна
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'services' %}"
+                            class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}">Послуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'about' %}"
+                            class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">Про
+                            мене</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'equipment' %}"
+                            class="nav-link {% if request.resolver_match.url_name == 'equipment' %}active{% endif %}">Обладнання</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'contacts' %}"
+                            class="nav-link {% if request.resolver_match.url_name == 'contacts' %}active{% endif %}">Контакти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'reviews' %}"
+                            class="nav-link {% if request.resolver_match.url_name == 'reviews' %}active{% endif %}">Відгуки</a>
+                    </li>
+                </ul>
+
+                <!-- Мобільне меню -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Відкрити меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Мобільне меню -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li><a href="{% url 'home' %}" class="mobile-nav-link">🏠 Головна</a></li>
+                <li><a href="{% url 'services' %}" class="mobile-nav-link">🔍 Послуги</a></li>
+                <li><a href="{% url 'about' %}" class="mobile-nav-link">👨‍💼 Про мене</a></li>
+                <li><a href="{% url 'equipment' %}" class="mobile-nav-link">🔬 Обладнання</a></li>
+                <li><a href="{% url 'contacts' %}" class="mobile-nav-link">📍 Контакти</a></li>
+                <li><a href="{% url 'reviews' %}" class="mobile-nav-link">⭐ Відгуки</a></li>
+                <li><a href="tel:+380673456789" class="mobile-cta-button">📞 Зателефонувати зараз</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Головний контент -->
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Контакти -->
+                <div class="footer-section">
+                    <h3 class="footer-title">📞 Контакти</h3>
+                    <div class="footer-info">
+                        <p class="footer-text">
+                            <strong>Телефон/Viber/Telegram:</strong><br>
+                            <a href="tel:+380673456789" class="footer-link">+38 (067) 345-67-89</a>
+                        </p>
+                        <p class="footer-text">
+                            <strong>WhatsApp:</strong><br>
+                            <a href="https://wa.me/380673456789" target="_blank" class="footer-link">+38 (067)
+                                345-67-89</a>
+                        </p>
+                        <p class="footer-text">
+                            <strong>Email:</strong><br>
+                            <a href="mailto:info@polygraph-kyiv.com" class="footer-link">info@polygraph-kyiv.com</a>
+                        </p>
+                        <p class="footer-text">
+                            <strong>📍 Локація:</strong> Київ, Україна<br>
+                            <small>Виїзд до клієнта по всій Україні</small>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Послуги -->
+                <div class="footer-section">
+                    <h3 class="footer-title">🔍 Послуги</h3>
+                    <ul class="footer-list">
+                        <li><a href="#services" class="footer-link">👥 Перевірка персоналу</a></li>
+                        <li><a href="#services" class="footer-link">💼 Кандидати на роботу</a></li>
+                        <li><a href="#services" class="footer-link">💔 Перевірка зради</a></li>
+                        <li><a href="#services" class="footer-link">⚖️ Судові перевірки</a></li>
+                        <li><a href="#services" class="footer-link">🏢 Корпоративні розслідування</a></li>
+                        <li><a href="#services" class="footer-link">🔒 Конфіденційно</a></li>
+                    </ul>
+                </div>
+
+                <!-- Інформація -->
+                <div class="footer-section">
+                    <h3 class="footer-title">🏅 Про компанію</h3>
+                    <ul class="footer-list">
+                        <li><a href="#about" class="footer-link">📜 Сертифікати</a></li>
+                        <li><a href="#about" class="footer-link">🏛️ Членство НАП України</a></li>
+                        <li><a href="#equipment" class="footer-link">🔬 Обладнання Rubicon</a></li>
+                        <li><a href="#about" class="footer-link">✅ Офіційний дилер</a></li>
+                        <li><a href="#about" class="footer-link">🛡️ Гарантії точності</a></li>
+                        <li><a href="#about" class="footer-link">🎓 Досвід 15+ років</a></li>
+                    </ul>
+                </div>
+
+                <!-- CTA секція -->
+                <div class="footer-section footer-cta">
+                    <h3 class="footer-title">🤝 Потрібна консультація?</h3>
+                    <p class="footer-text">
+                        ✅ Безкоштовна консультація<br>
+                        ✅ Відповіді на всі питання<br>
+                        ✅ Розрахунок вартості<br>
+                        ✅ Конфіденційність гарантована
+                    </p>
+                    <a href="tel:+380673456789" class="footer-cta-button">📞 Зателефонувати зараз</a>
+                    <a href="https://t.me/polygraph_kyiv" target="_blank" class="footer-cta-button telegram-button">📱
+                        Telegram</a>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Послуги поліграфолога в Києві. Всі права захищено.
+                </p>
+                <p class="footer-note">
+                    🏅 Сертифікований член Національної Асоціації Поліграфологів України
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{% static 'main/js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Контакти - Зв'язатися з поліграфологом у Києві{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/contacts.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero секція -->
+<section class="contacts-hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-prefix">Зв'яжіться з нами</span>
+                <span class="title-main">Готові допомогти 24/7</span>
+            </h1>
+            <p class="hero-subtitle">
+                Безкоштовна консультація | Виїзд по всій Україні | Повна конфіденційність
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Контакти та форма -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- Контактна інформація -->
+            <div class="contact-info">
+                <h2 class="section-title">Контактна інформація</h2>
+
+                <div class="contact-methods">
+                    <div class="contact-method" data-aos="fade-right" data-aos-delay="100">
+                        <div class="method-icon">📞</div>
+                        <div class="method-content">
+                            <h3>Телефон</h3>
+                            <p>Цілодобова консультація</p>
+                            <a href="tel:+380673456789" class="contact-link">+38 (067) 345-67-89</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-right" data-aos-delay="200">
+                        <div class="method-icon">📧</div>
+                        <div class="method-content">
+                            <h3>Email</h3>
+                            <p>Письмові запити</p>
+                            <a href="mailto:info@polygraph-kyiv.com" class="contact-link">info@polygraph-kyiv.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-right" data-aos-delay="300">
+                        <div class="method-icon">📱</div>
+                        <div class="method-content">
+                            <h3>Telegram</h3>
+                            <p>Швидкий зв'язок</p>
+                            <a href="https://t.me/polygraph_kyiv" target="_blank"
+                                class="contact-link">@polygraph_kyiv</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-right" data-aos-delay="400">
+                        <div class="method-icon">💬</div>
+                        <div class="method-content">
+                            <h3>WhatsApp</h3>
+                            <p>Миттєві повідомлення</p>
+                            <a href="https://wa.me/380673456789" target="_blank" class="contact-link">+38 (067)
+                                345-67-89</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-right" data-aos-delay="500">
+                        <div class="method-icon">📍</div>
+                        <div class="method-content">
+                            <h3>Локація</h3>
+                            <p>Київ, Україна</p>
+                            <span class="contact-note">Виїзд по всій країні</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Графік роботи -->
+                <div class="schedule" data-aos="fade-up" data-aos-delay="600">
+                    <h3>Графік роботи</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <span class="day">Пн-Пт:</span>
+                            <span class="time">09:00 - 21:00</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="day">Сб-Нд:</span>
+                            <span class="time">10:00 - 18:00</span>
+                        </div>
+                        <div class="schedule-item emergency">
+                            <span class="day">Екстрені випадки:</span>
+                            <span class="time">24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма заявки -->
+            <div class="contact-form-section">
+                <h2 class="section-title">Залишити заявку</h2>
+
+                <form class="contact-form" id="contactForm" data-aos="fade-left" data-aos-delay="300">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Ім'я *</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                        <span class="form-error" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                        <span class="form-error" id="phoneError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service" class="form-label">Тип послуги</label>
+                        <select id="service" name="service" class="form-select">
+                            <option value="">Оберіть послугу</option>
+                            <option value="betrayal">Перевірка на зраду</option>
+                            <option value="employment">Скринінг персоналу</option>
+                            <option value="investigation">Розслідування</option>
+                            <option value="private">Приватні питання</option>
+                            <option value="corporate">Корпоративна перевірка</option>
+                            <option value="other">Інше</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Повідомлення</label>
+                        <textarea id="message" name="message" class="form-textarea" rows="4"
+                            placeholder="Опишіть вашу ситуацію (необов'язково)"></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">Згоден з <a href="#" class="privacy-link">обробкою персональних
+                                    даних</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        <span class="submit-text">Відправити заявку</span>
+                        <span class="submit-loader"></span>
+                    </button>
+                </form>
+
+                <!-- Повідомлення про результат -->
+                <div class="form-message" id="formMessage"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Переваги співпраці -->
+<section class="cooperation-advantages">
+    <div class="container">
+        <h2 class="section-title">Чому варто звернутися саме зараз?</h2>
+
+        <div class="advantages-grid">
+            <div class="advantage-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="advantage-icon">⚡</div>
+                <h3>Швидка відповідь</h3>
+                <p>Відповідаємо на заявки протягом 15 хвилин</p>
+            </div>
+
+            <div class="advantage-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="advantage-icon">🆓</div>
+                <h3>Безкоштовна консультація</h3>
+                <p>Детальна консультація без зобов'язань</p>
+            </div>
+
+            <div class="advantage-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="advantage-icon">🔒</div>
+                <h3>Повна конфіденційність</h3>
+                <p>Гарантована анонімність на всіх етапах</p>
+            </div>
+
+            <div class="advantage-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="advantage-icon">🎯</div>
+                <h3>Індивідуальний підхід</h3>
+                <p>Персональне рішення для кожного клієнта</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">Часті питання</h2>
+
+        <div class="faq-list">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="faq-question">
+                    <h3>Скільки коштує перевірка на поліграфі?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Вартість залежить від типу перевірки: від 2500 грн за скринінг до 5000 грн за складні справи.
+                        Точну ціну повідомимо після консультації.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="faq-question">
+                    <h3>Чи можна обійти поліграф?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Сучасні поліграфи Rubicon мають захист від спроб обману. Точність наших результатів становить
+                        98.5%.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="faq-question">
+                    <h3>Як довго триває перевірка?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Стандартна перевірка займає 1-2 години. Результати та письмовий висновок готові протягом 24
+                        годин.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="faq-question">
+                    <h3>Чи можна провести перевірку вдома?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Так, ми працюємо з виїздом. Головне - забезпечити тихе приватне місце для проведення тестування.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Екстрений контакт -->
+<section class="emergency-contact">
+    <div class="container">
+        <div class="emergency-content">
+            <h2>Екстрена ситуація?</h2>
+            <p>Дзвоніть цілодобово. Ми завжди готові допомогти.</p>
+            <a href="tel:+380673456789" class="emergency-button">
+                📞 Зателефонувати зараз
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'main/js/contacts.js' %}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+{% endblock %}
