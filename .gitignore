@@ -61,7 +61,8 @@ yarn-error.log*
 
 # Static files (if collected)
 staticfiles/
-static/
+# Don't ignore development static files
+# static/
 
 # Secrets
 *.key
