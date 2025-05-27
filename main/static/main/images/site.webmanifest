@@ -1,0 +1,16 @@
+{
+    "name": "Поліграфолог - Професійні послуги",
+    "short_name": "Поліграфолог",
+    "description": "Професійні послуги поліграфолога. Перевірка на зраду, скринінг персоналу, розслідування крадіжок.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F1E3D3",
+    "theme_color": "#BCA9E0",
+    "icons": [
+        {
+            "src": "/static/main/images/logo.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}
