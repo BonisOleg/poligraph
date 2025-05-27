@@ -38,11 +38,14 @@ body {
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
-.header:hover {
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+/* Hover ефекти тільки для десктопу */
+@media (hover: hover) and (pointer: fine) {
+    .header:hover {
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+    }
 }
 
 .header-container {
@@ -66,29 +69,26 @@ body {
     display: block;
     padding: 8px 16px;
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.logo-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(188, 169, 224, 0.2), transparent);
-    transition: left 0.5s ease;
-}
 
-.logo-link:hover::before {
-    left: 100%;
-}
 
-.logo-link:hover {
-    background-color: var(--beige-light);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .logo-link:hover .logo-text {
+        color: var(--purple-dark);
+        text-shadow:
+            0 0 25px rgba(188, 169, 224, 0.6),
+            2px 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo-link:hover .logo-image {
+        transform: translateY(-2px) scale(1.05);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    }
 }
 
 .logo-text {
@@ -104,25 +104,13 @@ body {
     z-index: 1;
 }
 
-.logo-link:hover .logo-text {
-    color: var(--purple-dark);
-    text-shadow:
-        0 0 25px rgba(188, 169, 224, 0.6),
-        2px 2px 6px rgba(0, 0, 0, 0.15);
-}
-
 .logo-image {
-    height: 40px;
+    height: 90px;
     width: auto;
     max-width: 180px;
     object-fit: contain;
     transition: all 0.3s ease;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.logo-link:hover .logo-image {
-    transform: translateY(-2px) scale(1.05);
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
 /* Navigation */
@@ -152,13 +140,10 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
-    padding: 12px 20px;
-    border-radius: 12px;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: color 0.2s ease;
     padding: 8px 12px;
     border-radius: 6px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .nav-link:hover,
@@ -177,6 +162,7 @@ body {
     text-decoration: none;
     transition: background 0.2s;
     font-size: 0.9rem;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .cta-button:hover {
@@ -192,6 +178,7 @@ body {
     cursor: pointer;
     padding: 8px;
     gap: 4px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-menu-toggle span {
@@ -227,6 +214,7 @@ body {
     border-radius: 8px;
     transition: background 0.2s;
     display: block;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-nav-link:hover {
@@ -244,6 +232,7 @@ body {
     text-align: center;
     display: block;
     margin-top: 8px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Footer */
@@ -350,6 +339,7 @@ body.home-page {
     display: inline-block;
     margin-top: 12px;
     transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .footer-cta-button:hover {
@@ -471,9 +461,20 @@ body.home-page {
     }
 }
 
-@media (max-width: 480px) {
+/* iOS Safari оптимізації */
+@supports (-webkit-touch-callout: none) {
+    .logo-link {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
 
-    .mobile-menu-toggle {
-        display: flex;
+    .nav-link {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .cta-button {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
 }

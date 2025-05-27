@@ -1,0 +1,505 @@
+.data-item {
+    background: rgba(188, 169, 224, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--purple-light);
+}
+
+.data-label {
+    display: block;
+    color: var(--purple-light);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-value {
+    display: block;
+    color: #00ff41;
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px #00ff41, 0 0 20px rgba(0, 255, 65, 0.3);
+    animation: dataFlicker 2s ease-in-out infinite;
+    position: relative;
+}
+
+.data-value::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2px;
+    right: -2px;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+    animation: dataScroll 1.5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes dataFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    25% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+
+    50% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    75% {
+        opacity: 0.85;
+        transform: scale(1.01);
+    }
+}
+
+@keyframes dataScroll {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Порівняння з конкурентами */
+.comparison {
+    padding: 5rem 0;
+    background: var(--white-soft);
+}
+
+.comparison-table {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: var(--white);
+}
+
+.header-item {
+    padding: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.feature-header {
+    text-align: left;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    border-bottom: 1px solid var(--gray-light);
+    transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+    background-color: var(--beige-light);
+}
+
+.row-item {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row-item.feature {
+    justify-content: flex-start;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.row-item.positive {
+    color: #22543d;
+    font-weight: 700;
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+}
+
+.row-item.negative {
+    color: #721c24;
+    font-weight: 600;
+    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+}
+
+/* Сертифікати */
+.certifications {
+    padding: 5rem 0;
+    background: var(--white);
+}
+
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.certificate-item {
+    background: linear-gradient(135deg, var(--beige-light), var(--white));
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.certificate-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.certificate-item:hover::before {
+    transform: scaleX(1);
+}
+
+.certificate-item:hover {
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.certificate-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    background: var(--purple);
+    color: var(--white);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.certificate-item h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+}
+
+.certificate-item p {
+    color: var(--gray-dark);
+    line-height: 1.6;
+}
+
+/* CTA секція */
+.equipment-cta {
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    padding: 1.2rem 3rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cta-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cta-btn.primary {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: var(--white);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--purple-light);
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивність */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .advantages-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .specs-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .equipment-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .advantage-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .comparison-table {
+        border-radius: 0;
+        margin: 0 -20px;
+    }
+
+    .table-header {
+        display: none;
+    }
+
+    .table-row {
+        display: block;
+        background: var(--white);
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .table-row:hover {
+        background: var(--white);
+    }
+
+    .row-item {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--gray-light);
+        display: block;
+        text-align: left;
+    }
+
+    .row-item:last-child {
+        border-bottom: none;
+    }
+
+    .row-item.feature {
+        background: var(--navy);
+        color: var(--white);
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .row-item.positive::before {
+        content: "Rubicon: ";
+        font-weight: 600;
+        color: var(--navy);
+    }
+
+    .row-item.negative::before {
+        content: "Конкуренти: ";
+        font-weight: 600;
+        color: var(--navy);
+    }
+
+    .measurement-data {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .equipment-hero {
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .title-prefix {
+        font-size: 1rem;
+    }
+
+    .spec-item {
+        padding: 2rem 1.5rem;
+    }
+
+    .spec-icon {
+        font-size: 2.5rem;
+    }
+
+    .equipment-card {
+        padding: 2rem 1.5rem;
+        min-height: 260px;
+    }
+
+    .equipment-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .equipment-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .advantage-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .certificate-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2.5rem;
+    }
+
+    .polygraph-simulation {
+        padding: 1.5rem;
+        margin: 0 -20px;
+        border-radius: 0;
+    }
+
+    .simulation-screen {
+        margin: 0 -0.5rem;
+        padding: 1rem;
+    }
+
+    .signal-line {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        background: linear-gradient(90deg,
+                rgba(0, 255, 65, 0.05) 0%,
+                rgba(0, 255, 65, 0.1) 50%,
+                rgba(0, 255, 65, 0.05) 100%);
+    }
+
+    .signal-wave {
+        width: 150%;
+    }
+}
+
+/* iOS Safari специфічні виправлення */
+@supports (-webkit-touch-callout: none) {
+
+    .spec-item:hover,
+    .equipment-card:hover,
+    .advantage-item:hover {
+        transform: none;
+    }
+
+    .certificate-item:hover {
+        transform: none;
+    }
+
+    .cta-btn:hover {
+        transform: none;
+    }
+}
+
+/* Покращення анімацій для мобільних пристроїв */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .wave-path {
+        animation: none;
+    }
+
+    .data-value {
+        animation: none;
+    }
+}

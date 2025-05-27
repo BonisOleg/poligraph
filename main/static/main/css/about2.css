@@ -1,0 +1,381 @@
+/* Процес роботи */
+.work-process {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--beige-light), var(--beige));
+}
+
+.process-steps {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    gap: 2rem;
+}
+
+.step-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.step-number {
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    box-shadow: 0 10px 25px rgba(188, 169, 224, 0.4);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.step-number::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid var(--purple-light);
+    border-radius: 50%;
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        border-color: var(--purple-light);
+    }
+
+    50% {
+        transform: rotate(180deg);
+        border-color: var(--purple);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        border-color: var(--purple-light);
+    }
+}
+
+.step-content {
+    flex: 1;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.step-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.step-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+}
+
+.step-content p {
+    color: var(--gray-dark);
+    line-height: 1.6;
+}
+
+/* Принципи */
+.guarantees {
+    padding: 5rem 0;
+    background: var(--white);
+}
+
+.principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.principle-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: linear-gradient(135deg, var(--beige-light), var(--white));
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border-left: 5px solid var(--purple);
+}
+
+.principle-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+.principle-icon {
+    font-size: 2.5rem;
+    background: var(--purple);
+    color: var(--white);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.principle-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.principle-content p {
+    color: var(--gray-dark);
+    line-height: 1.6;
+}
+
+/* CTA контакт */
+.contact-cta {
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    padding: 1.2rem 3rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cta-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cta-btn.primary {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: var(--white);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--purple-light);
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивність */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .reasons-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .title-prefix {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .timeline-item {
+        flex-direction: column !important;
+        align-items: center;
+    }
+
+    .timeline-content {
+        margin: 2rem 0 !important;
+        width: 100%;
+    }
+
+    .certifications-timeline::before {
+        left: 20px;
+    }
+
+    .timeline-marker {
+        left: 20px !important;
+        transform: none !important;
+        width: 60px;
+        height: 60px;
+        font-size: 0.9rem;
+    }
+
+    .step-item {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .step-number {
+        order: 1;
+    }
+
+    .step-content {
+        order: 2;
+    }
+
+    .principle-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero {
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .achievement-number {
+        font-size: 2.5rem;
+    }
+
+    .achievement-item {
+        padding: 2rem 1.5rem;
+    }
+
+    .reason-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .reason-icon {
+        font-size: 2.5rem;
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+
+    .principle-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+}
+
+/* iOS Safari специфічні виправлення */
+@supports (-webkit-touch-callout: none) {
+
+    .achievement-item:hover,
+    .reason-card:hover,
+    .step-content:hover {
+        transform: none;
+    }
+
+    .badge:hover,
+    .principle-item:hover {
+        transform: none;
+    }
+}
+
+/* Покращення анімацій для мобільних пристроїв */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

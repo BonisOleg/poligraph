@@ -91,12 +91,15 @@
     padding: 1.5rem;
     background: var(--beige-light);
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
-.contact-method:hover {
-    transform: translateX(5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+/* Hover ефекти тільки для десктопу */
+@media (hover: hover) and (pointer: fine) {
+    .contact-method:hover {
+        transform: translateX(5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
 }
 
 .method-icon {
@@ -293,14 +296,17 @@ input[type="checkbox"] {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.form-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(188, 169, 224, 0.4);
+@media (hover: hover) and (pointer: fine) {
+    .form-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(188, 169, 224, 0.4);
+    }
 }
 
 .submit-loader {
@@ -324,215 +330,15 @@ input[type="checkbox"] {
     }
 }
 
-/* Переваги співпраці */
-.cooperation-advantages {
-    padding: 4rem 0;
-    background: var(--white-soft);
-}
-
-.advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.advantage-card {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-.advantage-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-}
-
-.advantage-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    animation: bounce 2s infinite;
-}
-
-.advantage-card h3 {
-    color: var(--navy);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.advantage-card p {
-    color: var(--gray-dark);
-    font-size: 0.9rem;
-}
-
-/* FAQ */
-.faq-section {
-    padding: 4rem 0;
-    background: var(--white);
-}
-
-.faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    border: 1px solid var(--gray-light);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-}
-
-.faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    background: var(--beige-light);
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.faq-question:hover {
-    background: var(--beige);
-}
-
-.faq-question h3 {
-    color: var(--navy);
-    font-weight: 600;
-    margin: 0;
-}
-
-.faq-toggle {
-    font-size: 1.5rem;
-    color: var(--purple);
-    font-weight: bold;
-    transition: transform 0.3s ease;
-}
-
-.faq-item.active .faq-toggle {
-    transform: rotate(45deg);
-}
-
-.faq-answer {
-    padding: 0 1.5rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.faq-item.active .faq-answer {
-    padding: 1.5rem;
-    max-height: 200px;
-}
-
-.faq-answer p {
-    color: var(--gray-dark);
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* Екстрений контакт */
-.emergency-contact {
-    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-    color: var(--white);
-    padding: 3rem 0;
-    text-align: center;
-}
-
-.emergency-content h2 {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-}
-
-.emergency-content p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.emergency-button {
-    background: var(--white);
-    color: #ff6b6b;
-    padding: 1rem 2rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    animation: pulse 2s infinite;
-}
-
-.emergency-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Адаптивність */
-@media (max-width: 1024px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 0 20px;
-    }
-
-    .hero-title {
-        font-size: 2.2rem;
-    }
-
-    .advantages-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-
-    .contact-method {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .method-icon {
-        margin-bottom: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 1.8rem;
-    }
-
-    .contact-form-section {
-        padding: 1.5rem;
-    }
-
-    .advantages-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .faq-question {
-        padding: 1rem;
-    }
-
-    .faq-answer {
-        padding: 0 1rem;
-    }
-
-    .faq-item.active .faq-answer {
-        padding: 1rem;
-    }
-}
-
-/* iOS Safari специфічні виправлення */
+/* iOS Safari оптимізації */
 @supports (-webkit-touch-callout: none) {
+    .contact-method {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
 
-    .contact-method:hover,
-    .advantage-card:hover {
-        transform: none;
+    .form-submit {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
 }

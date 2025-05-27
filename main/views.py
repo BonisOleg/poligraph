@@ -28,8 +28,7 @@ def services(request):
             },
             {
                 'title': 'Скринінг при працевлаштуванні',
-                'price': '2500 грн',
-                'extended_price': '4000 грн (розширений)',
+                'price': '2500/4000 грн',
                 'description': 'Перевірка кандидатів на роботу для забезпечення надійності',
                 'icon': '👥',
                 'features': [
@@ -115,8 +114,8 @@ def about(request):
                 'description': 'Додаткова кваліфікація у сфері корпоративної безпеки'
             }
         ],
-        'experience_years': 15,
-        'cases_completed': 1500,
+        'experience_years': 3,
+        'cases_completed': 500,
         'accuracy_rate': 98
     }
     return render(request, 'main/about.html', context)

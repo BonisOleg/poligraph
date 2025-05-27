@@ -71,4 +71,11 @@ secrets.json
 
 # Cache
 .cache/
-.pytest_cache/ 
+.pytest_cache/
+
+# Production files
+staticfiles/
+*.sqlite3
+
+# Render specific
+.render/ 

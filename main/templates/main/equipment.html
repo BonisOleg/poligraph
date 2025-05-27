@@ -4,7 +4,8 @@
 {% block title %}Обладнання - Поліграф Rubicon Professional Series{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'main/css/equipment.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/equipment1.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/equipment2.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -132,8 +133,8 @@
                 <div class="polygraph-simulation">
                     <div class="simulation-screen">
                         <div class="signal-line">
-                            <svg class="signal-wave" viewBox="0 0 400 100">
-                                <path class="wave-path" d="M0,50 Q50,20 100,50 T200,50 T300,50 T400,50"></path>
+                            <svg class="signal-wave" viewBox="0 0 600 100" preserveAspectRatio="none">
+                                <path class="wave-path" d="M0,50 L50,50 L52,20 L54,80 L56,15 L60,50 L150,50 L152,45 L154,55 L156,30 L158,70 L160,50 L250,50 L252,25 L254,75 L256,10 L258,85 L262,50 L350,50 L352,40 L354,60 L356,35 L358,65 L360,50 L450,50 L452,30 L454,70 L456,20 L458,80 L462,50 L550,50 L552,45 L554,55 L556,25 L558,75 L560,50 L600,50"></path>
                             </svg>
                         </div>
                         <div class="measurement-data">
@@ -250,7 +251,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'main/js/equipment.js' %}"></script>
+<script src="{% static 'main/js/equipment1.js' %}"></script>
+<script src="{% static 'main/js/equipment2.js' %}"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({
