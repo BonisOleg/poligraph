@@ -23,4 +23,6 @@ services:
       - key: DEBUG
         value: False
       - key: RENDER
+        value: true
+      - key: DEBUG_RENDER
         value: true 

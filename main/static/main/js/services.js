@@ -1,7 +1,7 @@
 // Services page JavaScript
 
 document.addEventListener('DOMContentLoaded', function () {
-    
+
 
 
     // Анімація статистики з лічильниками

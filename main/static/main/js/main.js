@@ -184,30 +184,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Підсвічування активного розділу при скролі (тільки для головної сторінки)
     if (window.location.pathname === '/' || window.location.pathname === '/home/') {
-        const sections = ['home', 'services', 'pricing', 'about', 'equipment', 'contacts'];
-        const navItems = document.querySelectorAll('.nav-link');
+    const sections = ['home', 'services', 'pricing', 'about', 'equipment', 'contacts'];
+    const navItems = document.querySelectorAll('.nav-link');
 
-        window.addEventListener('scroll', () => {
-            let current = 'home';
+    window.addEventListener('scroll', () => {
+        let current = 'home';
 
-            sections.forEach(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top <= 100) {
-                        current = section;
-                    }
+        sections.forEach(section => {
+            const element = document.getElementById(section);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 100) {
+                    current = section;
                 }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === `#${current}` ||
-                    (current === 'home' && item.getAttribute('href') === '/')) {
-                    item.classList.add('active');
-                }
-            });
+            }
         });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${current}` ||
+                (current === 'home' && item.getAttribute('href') === '/')) {
+                item.classList.add('active');
+            }
+        });
+    });
     }
 });
 
