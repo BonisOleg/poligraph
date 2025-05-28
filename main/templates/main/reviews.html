@@ -317,12 +317,12 @@
                 <a href="tel:+380673456789" class="cta-btn primary">
                     📞 Зателефонувати зараз
                 </a>
-                <a href="{% url 'contacts' %}" class="cta-btn secondary">
+                <button onclick="modalSystem.openContactModal()" class="cta-btn secondary">
                     ✉️ Залишити заявку
-                </a>
-                <a href="{% url 'services' %}" class="cta-btn tertiary">
-                    🔍 Подивитися послуги
-                </a>
+                </button>
+                <button onclick="modalSystem.openReviewModal()" class="cta-btn tertiary">
+                    ⭐ Написати відгук
+                </button>
             </div>
         </div>
     </div>

@@ -1,189 +1,255 @@
+// Основна функціональність сайту
 document.addEventListener('DOMContentLoaded', function () {
     // Мобільне меню
+    setupMobileMenu();
+
+    // Smooth scrolling для анкорних посилань
+    setupSmoothScrolling();
+
+    // Lazy loading для зображень
+    setupLazyLoading();
+
+    // Performance optimizations
+    setupPerformanceOptimizations();
+});
+
+function setupMobileMenu() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
 
     if (mobileMenuToggle && mobileMenu) {
         mobileMenuToggle.addEventListener('click', function () {
-            mobileMenu.classList.toggle('active');
+            const isOpen = mobileMenu.classList.contains('active');
 
-            // Анімація іконки
-            const spans = mobileMenuToggle.querySelectorAll('span');
-            if (mobileMenu.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-                mobileMenuToggle.setAttribute('aria-label', 'Закрити меню');
+            if (isOpen) {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = '';
             } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-                mobileMenuToggle.setAttribute('aria-label', 'Відкрити меню');
+                mobileMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         });
 
-        // Закриття меню при кліку на посилання
-        const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link, .mobile-cta-button');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function () {
+        // Закриття меню при кліці на посилання
+        const mobileLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
-                const spans = mobileMenuToggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-                mobileMenuToggle.setAttribute('aria-label', 'Відкрити меню');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
 
-        // Закриття меню при кліку поза ним
-        document.addEventListener('click', function (event) {
-            const isClickInsideMenu = mobileMenu.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-
-            if (!isClickInsideMenu && !isClickOnToggle && mobileMenu.classList.contains('active')) {
+        // Закриття меню при кліці поза ним
+        document.addEventListener('click', function (e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
                 mobileMenu.classList.remove('active');
-                const spans = mobileMenuToggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-                mobileMenuToggle.setAttribute('aria-label', 'Відкрити меню');
-            }
-        });
-
-        // Закриття меню при натисканні Escape
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                const spans = mobileMenuToggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-                mobileMenuToggle.setAttribute('aria-label', 'Відкрити меню');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
     }
+}
 
-    // Smooth scroll для якорних посилань
+function setupSmoothScrolling() {
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
+
     anchorLinks.forEach(link => {
         link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            if (href === '#') return;
 
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
+            if (href !== '#' && href.length > 1) {
+                const target = document.querySelector(href);
 
-            if (targetElement) {
-                e.preventDefault();
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                if (target) {
+                    e.preventDefault();
 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
         });
     });
+}
 
-    // Додавання активного класу до поточної сторінки
-    const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+function setupLazyLoading() {
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.getAttribute('data-src');
 
-    navLinks.forEach(link => {
-        try {
-            const linkPath = new URL(link.href).pathname;
-            if (linkPath === currentPath) {
-                link.classList.add('active');
-            }
-        } catch (e) {
-            // Ігноруємо помилки для якорних посилань
+                    if (src) {
+                        img.src = src;
+                        img.removeAttribute('data-src');
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+}
+
+function setupPerformanceOptimizations() {
+    // Preload critical resources
+    const criticalResources = [
+        '/static/main/css/base.css',
+        '/static/main/css/modal-system.css'
+    ];
+
+    criticalResources.forEach(resource => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = resource;
+        link.as = 'style';
+        document.head.appendChild(link);
+    });
+
+    // Optimize animations for low-end devices
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) {
+        document.documentElement.style.setProperty('--animation-duration', '0.1s');
+    }
+}
+
+// Utility functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// Export utilities for other scripts
+window.utils = {
+    debounce,
+    throttle
+};
+
+// Додавання активного класу до поточної сторінки
+const currentPath = window.location.pathname;
+const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+
+navLinks.forEach(link => {
+    try {
+        const linkPath = new URL(link.href).pathname;
+        if (linkPath === currentPath) {
+            link.classList.add('active');
+        }
+    } catch (e) {
+        // Ігноруємо помилки для якорних посилань
+    }
+});
+
+// Анімація появи елементів при скролі
+const observeElements = document.querySelectorAll('.footer-section, .nav-item');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
         }
     });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+});
 
-    // Анімація появи елементів при скролі
-    const observeElements = document.querySelectorAll('.footer-section, .nav-item');
+observeElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+// Додавання hover ефектів для посилань
+const allLinks = document.querySelectorAll('a:not(.logo-link)');
+allLinks.forEach(link => {
+    link.addEventListener('mouseenter', function () {
+        this.style.transition = 'all 0.3s ease';
     });
+});
 
-    observeElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+// Анімація кнопок при натисканні
+const buttons = document.querySelectorAll('.cta-button, .footer-cta-button, .mobile-cta-button');
+buttons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        // Створюємо ripple ефект
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+
+        this.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
     });
+});
 
-    // Додавання hover ефектів для посилань
-    const allLinks = document.querySelectorAll('a:not(.logo-link)');
-    allLinks.forEach(link => {
-        link.addEventListener('mouseenter', function () {
-            this.style.transition = 'all 0.3s ease';
-        });
+// Показ повідомлення при кліку на телефон (для демонстрації)
+const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+phoneLinks.forEach(link => {
+    link.addEventListener('click', function (e) {
+        // Можна додати аналітику або повідомлення
+        console.log('Дзвінок: ' + this.href);
     });
+});
 
-    // Анімація кнопок при натисканні
-    const buttons = document.querySelectorAll('.cta-button, .footer-cta-button, .mobile-cta-button');
-    buttons.forEach(button => {
-        button.addEventListener('click', function (e) {
-            // Створюємо ripple ефект
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
+// Анімація header при скролі
+let lastScroll = 0;
+const header = document.querySelector('.header');
 
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
 
-            this.appendChild(ripple);
+    if (currentScroll > 100) {
+        header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(247, 247, 247, 0.95))';
+        header.style.backdropFilter = 'blur(15px)';
+    } else {
+        header.style.background = 'linear-gradient(135deg, var(--white), var(--white-soft))';
+        header.style.backdropFilter = 'blur(10px)';
+    }
 
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
+    lastScroll = currentScroll;
+});
 
-    // Показ повідомлення при кліку на телефон (для демонстрації)
-    const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
-    phoneLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            // Можна додати аналітику або повідомлення
-            console.log('Дзвінок: ' + this.href);
-        });
-    });
-
-    // Анімація header при скролі
-    let lastScroll = 0;
-    const header = document.querySelector('.header');
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll > 100) {
-            header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(247, 247, 247, 0.95))';
-            header.style.backdropFilter = 'blur(15px)';
-        } else {
-            header.style.background = 'linear-gradient(135deg, var(--white), var(--white-soft))';
-            header.style.backdropFilter = 'blur(10px)';
-        }
-
-        lastScroll = currentScroll;
-    });
-
-    // Підсвічування активного розділу при скролі (тільки для головної сторінки)
-    if (window.location.pathname === '/' || window.location.pathname === '/home/') {
+// Підсвічування активного розділу при скролі (тільки для головної сторінки)
+if (window.location.pathname === '/' || window.location.pathname === '/home/') {
     const sections = ['home', 'services', 'pricing', 'about', 'equipment', 'contacts'];
     const navItems = document.querySelectorAll('.nav-link');
 
@@ -208,8 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-    }
-});
+}
 
 // CSS для ripple ефекту
 const style = document.createElement('style');

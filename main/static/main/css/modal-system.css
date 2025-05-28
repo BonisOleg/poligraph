@@ -1,0 +1,419 @@
+/* Універсальна система модальних вікон */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    background: var(--white);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8) translateY(50px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+/* Заголовок модального вікна */
+.modal-header {
+    padding: 2rem 2rem 1rem;
+    border-bottom: 1px solid var(--gray-light);
+    position: relative;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0;
+    text-align: center;
+}
+
+.modal-subtitle {
+    color: var(--gray-dark);
+    font-size: 0.95rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--gray-light);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--gray-dark);
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: var(--purple);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+/* Тіло модального вікна */
+.modal-body {
+    padding: 1.5rem 2rem 2rem;
+}
+
+/* Форми в модальних вікнах */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.modal-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form-label {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.modal-form-input,
+.modal-form-select,
+.modal-form-textarea {
+    padding: 12px 16px;
+    border: 2px solid var(--gray-light);
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--navy);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.modal-form-input:focus,
+.modal-form-select:focus,
+.modal-form-textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(188, 169, 224, 0.2);
+    transform: translateY(-1px);
+}
+
+.modal-form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.modal-form-select {
+    cursor: pointer;
+}
+
+/* Кнопки в модальних вікнах */
+.modal-form-submit {
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal-form-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(188, 169, 224, 0.4);
+}
+
+.modal-form-submit:active {
+    transform: translateY(0);
+}
+
+.modal-form-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.modal-submit-loader {
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--white);
+    border-radius: 50%;
+    animation: modalSpin 1s linear infinite;
+    display: none;
+}
+
+.modal-form-submit.loading .modal-submit-loader {
+    display: block;
+}
+
+.modal-form-submit.loading .modal-submit-text {
+    display: none;
+}
+
+@keyframes modalSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Повідомлення про результат */
+.modal-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.modal-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal-message.success {
+    background: #DFF5E3;
+    color: #22543D;
+    border: 1px solid #9AE6B4;
+}
+
+.modal-message.error {
+    background: #FDEDED;
+    color: #911E1E;
+    border: 1px solid #FEB2B2;
+}
+
+/* Чекбокси */
+.modal-checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.modal-checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-light);
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-checkbox-input {
+    display: none;
+}
+
+.modal-checkbox-input:checked+.modal-checkbox-custom {
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+.modal-checkbox-input:checked+.modal-checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.modal-checkbox-text {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+    line-height: 1.4;
+}
+
+.modal-checkbox-text a {
+    color: var(--purple);
+    text-decoration: none;
+}
+
+.modal-checkbox-text a:hover {
+    text-decoration: underline;
+}
+
+/* Рейтинг у модальних вікнах */
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 0.25rem;
+    margin: 0.5rem 0;
+}
+
+.rating-input input[type="radio"] {
+    display: none;
+}
+
+.rating-input .star-label {
+    font-size: 2rem;
+    color: var(--gray-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.rating-input .star-label:hover {
+    color: #FFD700;
+    transform: scale(1.15);
+}
+
+.rating-input input[type="radio"]:checked~.star-label,
+.rating-input .star-label:hover~.star-label {
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-container {
+        max-height: 95vh;
+        border-radius: 15px;
+    }
+
+    .modal-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .modal-body {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .modal-title {
+        font-size: 1.3rem;
+    }
+
+    .modal-form {
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-container {
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 1.25rem 1.25rem 0.75rem;
+    }
+
+    .modal-body {
+        padding: 0.75rem 1.25rem 1.25rem;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* iOS Safari виправлення */
+@supports (-webkit-touch-callout: none) {
+    .modal-container {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .modal-form-input,
+    .modal-form-select,
+    .modal-form-textarea {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .modal-form-select {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.7rem center;
+        background-size: 0.65rem auto;
+        padding-right: 2.5rem;
+    }
+}
+
+/* Анімації для відкриття */
+.modal-enter {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal-enter-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.modal-enter-active .modal-container {
+    transform: scale(1) translateY(0);
+    transition: transform 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-exit {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-exit-active {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.modal-exit-active .modal-container {
+    transform: scale(0.9) translateY(20px);
+    transition: transform 200ms ease;
+}

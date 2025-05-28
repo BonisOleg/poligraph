@@ -9,4 +9,6 @@ urlpatterns = [
     path('contacts/', views.contacts, name='contacts'),
     path('reviews/', views.reviews, name='reviews'),
     path('api/send-contact/', views.send_contact_form, name='send_contact_form'),
+    path('api/send-review/', views.send_review_form, name='send_review_form'),
+    path('api/quick-order/', views.send_quick_order, name='send_quick_order'),
 ] 

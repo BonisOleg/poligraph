@@ -153,21 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Додавання hover ефектів до принципів
     const principleItems = document.querySelectorAll('.principle-item');
 
-    principleItems.forEach(item => {
-        item.addEventListener('mouseenter', function () {
-            const icon = this.querySelector('.principle-icon');
-            if (icon) {
-                icon.style.animation = 'spin 2s linear infinite';
-            }
-        });
-
-        item.addEventListener('mouseleave', function () {
-            const icon = this.querySelector('.principle-icon');
-            if (icon) {
-                icon.style.animation = 'rotate 6s linear infinite';
-            }
-        });
-    });
 
     // Smooth scroll для CTA кнопок
     const ctaButtons = document.querySelectorAll('.cta-btn');

@@ -95,12 +95,12 @@ body.home-page .main-content {
 /* ЕКГ лінія ПОСЕРЕДИНІ */
 .ecg-container {
     position: absolute;
-    top: 110%;
+    top: 50%;
     left: 0;
     width: 100%;
     height: 100px;
     overflow: visible;
-    z-index: 3;
+    z-index: 0;
     transform: translateY(-50%);
 }
 
