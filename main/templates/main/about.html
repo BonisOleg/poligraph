@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Про мене - Сертифікований поліграфолог з 3-річним досвідом{% endblock %}
+{% block title %}Про мене - Керезвас Юліана Георгіївна, сертифікований поліграфолог{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'main/css/about1.css' %}">
@@ -16,22 +16,22 @@
             <div class="hero-text">
                 <h1 class="hero-title">
                     <span class="title-prefix">Знайомтесь</span>
-                    <span class="title-main">Ваш експерт з поліграфії</span>
+                    <span class="title-main">Керезвас Юліана Георгіївна</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Понад {{ experience_years }} роки професійного досвіду в галузі поліграфології.
-                    Член Національної Асоціації Поліграфологів України.
+                    Керівниця представництва Національної асоціації поліграфологів України у Львівській області.
+                    Юрист-магістр з відзнакою, спеціаліст з публічного управління.
                     Провела більше {{ cases_completed }} успішних перевірок з точністю {{ accuracy_rate }}%.
                 </p>
 
                 <div class="hero-badges">
                     <div class="badge">
                         <span class="badge-icon">🏅</span>
-                        <span class="badge-text">Сертифікований експерт</span>
+                        <span class="badge-text">Керівниця представництва НАПУ</span>
                     </div>
                     <div class="badge">
-                        <span class="badge-icon">🔬</span>
-                        <span class="badge-text">Офіційний дилер Rubicon</span>
+                        <span class="badge-icon">🎓</span>
+                        <span class="badge-text">Магістр права з відзнакою</span>
                     </div>
                     <div class="badge">
                         <span class="badge-icon">⚖️</span>
@@ -54,12 +54,6 @@
 <section class="achievements">
     <div class="container">
         <div class="achievements-grid">
-            <div class="achievement-item" data-count="{{ experience_years }}">
-                <div class="achievement-number">{{ experience_years }}+</div>
-                <div class="achievement-label">років досвіду</div>
-                <div class="achievement-description">Професійна діяльність у сфері поліграфології</div>
-            </div>
-
             <div class="achievement-item" data-count="{{ cases_completed }}">
                 <div class="achievement-number">{{ cases_completed }}+</div>
                 <div class="achievement-label">проведених перевірок</div>
@@ -76,6 +70,12 @@
                 <div class="achievement-number">100%</div>
                 <div class="achievement-label">конфіденційність</div>
                 <div class="achievement-description">Гарантована анонімність</div>
+            </div>
+
+            <div class="achievement-item" data-count="2">
+                <div class="achievement-number">2</div>
+                <div class="achievement-label">дипломи магістра</div>
+                <div class="achievement-description">Право та публічне управління</div>
             </div>
         </div>
     </div>
@@ -244,7 +244,7 @@
             <p>Безкоштовна консультація допоможе визначити найкращий підхід до вашої ситуації</p>
 
             <div class="cta-buttons">
-                <a href="tel:+380673456789" class="cta-btn primary">
+                <a href="tel:+380675243354" class="cta-btn primary">
                     📞 Зателефонувати зараз
                 </a>
                 <button onclick="modalSystem.openContactModal()" class="cta-btn secondary">

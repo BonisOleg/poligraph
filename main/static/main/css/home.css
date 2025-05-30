@@ -65,7 +65,6 @@ body.home-page .main-content {
     white-space: nowrap;
     line-height: 1;
     letter-spacing: 0.03em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), 0 0 30px rgba(188, 169, 224, 0.3);
     user-select: none;
 }
 
@@ -122,7 +121,7 @@ body.home-page .main-content {
 .ecg-path {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: ecgDraw 6s infinite;
+    animation: ecgDraw 8s infinite;
     stroke-width: 3;
 }
 
@@ -131,11 +130,11 @@ body.home-page .main-content {
         stroke-dashoffset: 1000;
     }
 
-    60% {
+    70% {
         stroke-dashoffset: 0;
     }
 
-    80% {
+    85% {
         stroke-dashoffset: 0;
     }
 
@@ -214,5 +213,54 @@ body.home-page .main-content {
 
     .title-section {
         height: 30%;
+    }
+}
+
+/* Спеціально для iPhone iOS Safari */
+@media (max-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
+    .home-container {
+        height: 40vh;
+        min-height: 280px;
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    .main-title {
+        font-size: 13vw;
+        max-width: 100vw;
+        word-break: keep-all;
+        white-space: nowrap;
+    }
+
+    .device-image {
+        width: 140%;
+        max-width: none;
+    }
+
+    .image-section {
+        padding: 0.3rem 0.8rem;
+        width: 45%;
+    }
+
+    .title-section {
+        height: 28%;
+        width: 100%;
+    }
+
+    .ecg-container {
+        width: 100vw;
+        max-width: 100vw;
+        overflow: hidden;
+    }
+
+    .ecg-svg {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .ecg-path {
+        animation: ecgDraw 9s infinite;
     }
 }
