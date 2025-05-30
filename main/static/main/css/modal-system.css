@@ -1,24 +1,25 @@
-/* Універсальна система модальних вікон */
+/* Універсальна система модальних вікон - переписано з нуля */
+
+/* Оверлей модального вікна */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(8px);
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    /* Центрування через grid - найнадійніший метод */
+    display: grid;
+    place-items: center;
     padding: 20px;
     box-sizing: border-box;
-    /* Для iOS Safari */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overflow-y: auto;
 }
 
 .modal-overlay.active {
@@ -26,6 +27,7 @@
     visibility: visible;
 }
 
+/* Контейнер модального вікна */
 .modal-container {
     background: var(--white);
     border-radius: 20px;
@@ -37,9 +39,6 @@
     transform: scale(0.8) translateY(50px);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    /* Для iOS Safari */
-    margin: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay.active .modal-container {
@@ -322,11 +321,21 @@
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
-/* Адаптивність */
+/* Адаптація для планшетів */
+@media (max-width: 1024px) {
+    .modal-container {
+        max-width: 90%;
+    }
+}
+
+/* Адаптація для мобільних пристроїв */
 @media (max-width: 768px) {
+    .modal-overlay {
+        padding: 15px;
+    }
+
     .modal-container {
         max-width: 95%;
-        margin: 10px;
         max-height: 85vh;
     }
 
@@ -343,35 +352,16 @@
     }
 }
 
-/* Спеціально для iPhone iOS Safari */
-@media (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+/* Адаптація для маленьких мобільних пристроїв */
+@media (max-width: 480px) {
     .modal-overlay {
         padding: 10px;
-        align-items: center;
-        justify-content: center;
-        /* Фіксація для iOS Safari */
-        position: fixed;
-        height: 100vh;
-        height: 100dvh;
-        /* Для нових браузерів */
     }
 
     .modal-container {
-        max-width: 100%;
-        width: calc(100vw - 20px);
-        max-height: 80vh;
-        max-height: 80dvh;
-        /* Для нових браузерів */
+        max-width: 98%;
+        max-height: 90vh;
         border-radius: 15px;
-        margin: 0;
-        /* Центрування */
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%) scale(0.8);
-    }
-
-    .modal-overlay.active .modal-container {
-        transform: translateY(-50%) scale(1);
     }
 
     .modal-header {
@@ -391,10 +381,7 @@
         height: 35px;
         top: 0.5rem;
         right: 0.5rem;
-    }
-
-    .modal-form-group {
-        gap: 1rem;
+        font-size: 1rem;
     }
 
     .modal-form-input,
@@ -406,8 +393,12 @@
     }
 }
 
-/* iOS Safari виправлення */
+/* Спеціальні стилі для iOS Safari */
 @supports (-webkit-touch-callout: none) {
+    .modal-overlay {
+        -webkit-overflow-scrolling: touch;
+    }
+
     .modal-container {
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
@@ -429,7 +420,7 @@
     }
 }
 
-/* Анімації для відкриття */
+/* Анімації відкриття/закриття */
 .modal-enter {
     opacity: 0;
     visibility: hidden;
