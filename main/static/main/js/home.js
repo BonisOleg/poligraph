@@ -10,6 +10,28 @@ function isSafari() {
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
 
+// Функція для принудового перезапуску анімації ECG
+function forceRestartECGAnimation() {
+    const ecgPath = document.querySelector('.ecg-path');
+    if (ecgPath) {
+        // Тимчасово видаляємо анімацію
+        ecgPath.style.animation = 'none';
+        ecgPath.style.webkitAnimation = 'none';
+
+        // Форсуємо reflow
+        ecgPath.offsetHeight;
+
+        // Відновлюємо анімацію з консистентними значеннями
+        const duration = getComputedStyle(document.documentElement).getPropertyValue('--ecg-animation-duration') || '8s';
+        const timing = getComputedStyle(document.documentElement).getPropertyValue('--ecg-animation-timing') || 'linear';
+
+        ecgPath.style.animation = `ecgDraw ${duration} ${timing} infinite`;
+        ecgPath.style.webkitAnimation = `ecgDraw ${duration} ${timing} infinite`;
+        ecgPath.style.animationFillMode = 'none';
+        ecgPath.style.webkitAnimationFillMode = 'none';
+    }
+}
+
 // Оптимізація ECG анімації для iOS
 function optimizeECGForIOS() {
     if (isIOS() && isSafari()) {
@@ -23,11 +45,15 @@ function optimizeECGForIOS() {
             ecgPath.style.webkitBackfaceVisibility = 'hidden';
             ecgPath.style.backfaceVisibility = 'hidden';
 
+            // Встановлюємо консистентні значення
+            ecgPath.style.strokeDasharray = '850';
+            ecgPath.style.strokeDashoffset = '850';
+
             // Встановлюємо стабільну анімацію
             ecgPath.style.webkitAnimationTimingFunction = 'linear';
             ecgPath.style.animationTimingFunction = 'linear';
-            ecgPath.style.webkitAnimationFillMode = 'forwards';
-            ecgPath.style.animationFillMode = 'forwards';
+            ecgPath.style.webkitAnimationFillMode = 'none';
+            ecgPath.style.animationFillMode = 'none';
         }
 
         if (ecgContainer) {
@@ -39,6 +65,11 @@ function optimizeECGForIOS() {
 
         // Додаємо клас для iOS специфічних стилів
         document.body.classList.add('ios-device');
+
+        // Перезапускаємо анімацію для забезпечення консистентності
+        setTimeout(() => {
+            forceRestartECGAnimation();
+        }, 100);
     }
 }
 
@@ -110,6 +141,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Слухач для паузи/відновлення анімації
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
+    // Обробник зміни орієнтації для iOS
+    window.addEventListener('orientationchange', function () {
+        setTimeout(() => {
+            setHomeContainerHeight();
+            if (isIOS()) {
+                forceRestartECGAnimation();
+            }
+        }, 300);
+    });
+
     // Обробник для фокусу/втрати фокусу вікна
     window.addEventListener('focus', function () {
         const ecgPath = document.querySelector('.ecg-path');
@@ -126,6 +167,22 @@ document.addEventListener('DOMContentLoaded', function () {
             ecgPath.style.animationPlayState = 'paused';
         }
     });
+
+    // Додаткова стабілізація для iOS - перевірка анімації кожні 10 секунд
+    if (isIOS()) {
+        setInterval(function () {
+            const ecgPath = document.querySelector('.ecg-path');
+            if (ecgPath && !document.hidden) {
+                const computedStyle = getComputedStyle(ecgPath);
+                const animationPlayState = computedStyle.animationPlayState || computedStyle.webkitAnimationPlayState;
+
+                // Якщо анімація зупинилась, перезапускаємо її
+                if (animationPlayState === 'paused' || !ecgPath.style.animation) {
+                    forceRestartECGAnimation();
+                }
+            }
+        }, 10000);
+    }
 });
 
 // Функція для встановлення висоти контейнера
