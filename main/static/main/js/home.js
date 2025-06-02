@@ -10,82 +10,38 @@ function isSafari() {
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
 
-// Функція для принудового перезапуску анімації ECG
-function forceRestartECGAnimation() {
-    const ecgPath = document.querySelector('.ecg-path');
-    if (ecgPath) {
-        // Тимчасово видаляємо анімацію
-        ecgPath.style.animation = 'none';
-        ecgPath.style.webkitAnimation = 'none';
-
-        // Форсуємо reflow
-        ecgPath.offsetHeight;
-
-        // Відновлюємо анімацію з консистентними значеннями
-        const duration = getComputedStyle(document.documentElement).getPropertyValue('--ecg-animation-duration') || '8s';
-        const timing = getComputedStyle(document.documentElement).getPropertyValue('--ecg-animation-timing') || 'linear';
-
-        ecgPath.style.animation = `ecgDraw ${duration} ${timing} infinite`;
-        ecgPath.style.webkitAnimation = `ecgDraw ${duration} ${timing} infinite`;
-        ecgPath.style.animationFillMode = 'none';
-        ecgPath.style.webkitAnimationFillMode = 'none';
-    }
-}
-
-// Оптимізація ECG анімації для iOS
+// Спрощена оптимізація для iOS (БЕЗ зміни анімації)
 function optimizeECGForIOS() {
     if (isIOS() && isSafari()) {
         const ecgPath = document.querySelector('.ecg-path');
         const ecgContainer = document.querySelector('.ecg-container');
 
         if (ecgPath) {
-            // Форсуємо hardware acceleration
+            // Тільки hardware acceleration, БЕЗ зміни анімації
             ecgPath.style.webkitTransform = 'translateZ(0)';
             ecgPath.style.transform = 'translateZ(0)';
             ecgPath.style.webkitBackfaceVisibility = 'hidden';
             ecgPath.style.backfaceVisibility = 'hidden';
-
-            // Встановлюємо консистентні значення
-            ecgPath.style.strokeDasharray = '850';
-            ecgPath.style.strokeDashoffset = '850';
-
-            // Встановлюємо стабільну анімацію
-            ecgPath.style.webkitAnimationTimingFunction = 'linear';
-            ecgPath.style.animationTimingFunction = 'linear';
-            ecgPath.style.webkitAnimationFillMode = 'none';
-            ecgPath.style.animationFillMode = 'none';
         }
 
         if (ecgContainer) {
             ecgContainer.style.webkitBackfaceVisibility = 'hidden';
             ecgContainer.style.backfaceVisibility = 'hidden';
-            ecgContainer.style.webkitPerspective = '1000px';
-            ecgContainer.style.perspective = '1000px';
         }
 
         // Додаємо клас для iOS специфічних стилів
         document.body.classList.add('ios-device');
-
-        // Перезапускаємо анімацію для забезпечення консистентності
-        setTimeout(() => {
-            forceRestartECGAnimation();
-        }, 100);
     }
 }
 
-// Функція для рестарту анімації при переході фокусу
+// Функція для рестарту анімації при переході фокусу (спрощена)
 function handleVisibilityChange() {
-    if (document.hidden) {
-        // Сторінка стала невидимою
-        const ecgPath = document.querySelector('.ecg-path');
-        if (ecgPath) {
+    const ecgPath = document.querySelector('.ecg-path');
+    if (ecgPath) {
+        if (document.hidden) {
             ecgPath.style.webkitAnimationPlayState = 'paused';
             ecgPath.style.animationPlayState = 'paused';
-        }
-    } else {
-        // Сторінка знову видима
-        const ecgPath = document.querySelector('.ecg-path');
-        if (ecgPath) {
+        } else {
             ecgPath.style.webkitAnimationPlayState = 'running';
             ecgPath.style.animationPlayState = 'running';
         }
@@ -100,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const imageSection = document.querySelector('.image-section');
     const body = document.body;
 
-    // Оптимізація для iOS
+    // Оптимізація для iOS (БЕЗ зміни анімації)
     optimizeECGForIOS();
 
     if (footer) {
@@ -140,49 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Слухач для паузи/відновлення анімації
     document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    // Обробник зміни орієнтації для iOS
-    window.addEventListener('orientationchange', function () {
-        setTimeout(() => {
-            setHomeContainerHeight();
-            if (isIOS()) {
-                forceRestartECGAnimation();
-            }
-        }, 300);
-    });
-
-    // Обробник для фокусу/втрати фокусу вікна
-    window.addEventListener('focus', function () {
-        const ecgPath = document.querySelector('.ecg-path');
-        if (ecgPath) {
-            ecgPath.style.webkitAnimationPlayState = 'running';
-            ecgPath.style.animationPlayState = 'running';
-        }
-    });
-
-    window.addEventListener('blur', function () {
-        const ecgPath = document.querySelector('.ecg-path');
-        if (ecgPath) {
-            ecgPath.style.webkitAnimationPlayState = 'paused';
-            ecgPath.style.animationPlayState = 'paused';
-        }
-    });
-
-    // Додаткова стабілізація для iOS - перевірка анімації кожні 10 секунд
-    if (isIOS()) {
-        setInterval(function () {
-            const ecgPath = document.querySelector('.ecg-path');
-            if (ecgPath && !document.hidden) {
-                const computedStyle = getComputedStyle(ecgPath);
-                const animationPlayState = computedStyle.animationPlayState || computedStyle.webkitAnimationPlayState;
-
-                // Якщо анімація зупинилась, перезапускаємо її
-                if (animationPlayState === 'paused' || !ecgPath.style.animation) {
-                    forceRestartECGAnimation();
-                }
-            }
-        }, 10000);
-    }
 });
 
 // Функція для встановлення висоти контейнера
