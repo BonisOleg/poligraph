@@ -35,7 +35,7 @@
 
             <div class="hero-device">
                 <div class="device-showcase">
-                    <img src="{% static 'main/images/polygraph-device134.jpg' %}" alt="Rubicon Polygraph Professional"
+                    <img src="{% static 'main/images/polygraph.jpeg' %}" alt="Rubicon Polygraph Professional"
                         class="device-image">
                     <div class="device-glow"></div>
                 </div>
@@ -57,7 +57,17 @@
                     {% elif spec_name == "Кількість каналів" %}🔢
                     {% elif spec_name == "Частота дискретизації" %}⚡
                     {% elif spec_name == "Сертифікація" %}🏅
-                    {% else %}🔧{% endif %}
+                    {% elif spec_name == "Роздільна здатність" %}📏
+                    {% elif spec_name == "Швидкість обробки" %}🚀
+                    {% elif spec_name == "Енергоспоживання" %}🔋
+                    {% elif spec_name == "Робоча температура" %}🌡️
+                    {% elif spec_name == "Вологість" %}💧
+                    {% elif spec_name == "Вага" %}⚖️
+                    {% elif spec_name == "Розміри" %}📐
+                    {% elif spec_name == "Підключення" %}🔗
+                    {% elif spec_name == "Пам'ять" %}💾
+                    {% elif spec_name == "Операційна система" %}💻
+                    {% else %}⚙️{% endif %}
                 </div>
                 <h3 class="spec-name">{{ spec_name }}</h3>
                 <div class="spec-value">{{ spec_value }}</div>
@@ -79,7 +89,16 @@
                     {% if "камера" in equipment.name|lower %}📹
                     {% elif "аудіо" in equipment.name|lower %}🎵
                     {% elif "комп" in equipment.name|lower %}💻
-                    {% else %}🔧{% endif %}
+                    {% elif "монітор" in equipment.name|lower %}🖥️
+                    {% elif "принтер" in equipment.name|lower %}🖨️
+                    {% elif "кабель" in equipment.name|lower %}🔌
+                    {% elif "сенсор" in equipment.name|lower %}📡
+                    {% elif "мікрофон" in equipment.name|lower %}🎤
+                    {% elif "блок" in equipment.name|lower %}🔲
+                    {% elif "адаптер" in equipment.name|lower %}🔄
+                    {% elif "підсилювач" in equipment.name|lower %}📢
+                    {% elif "калібратор" in equipment.name|lower %}⚗️
+                    {% else %}📦{% endif %}
                 </div>
                 <h3 class="equipment-name">{{ equipment.name }}</h3>
                 <p class="equipment-description">{{ equipment.description }}</p>
@@ -240,9 +259,9 @@
             <p>Запрошуємо на безкоштовну демонстрацію можливостей поліграфа Rubicon</p>
 
             <div class="cta-buttons">
-                <button onclick="modalSystem.openQuickOrderModal()" class="cta-btn primary">
+                <a href="/contacts/" class="cta-btn primary">
                     📞 Записатися на демо
-                </button>
+                </a>
                 <a href="https://www.polygraph-rubicon.com/contacts/" target="_blank" class="cta-btn secondary">
                     🌐 Офіційний сайт Rubicon
                 </a>

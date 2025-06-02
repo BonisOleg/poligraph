@@ -112,11 +112,6 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     border-bottom: 1px solid var(--gray-light);
-    transition: background-color 0.2s ease;
-}
-
-.table-row:hover {
-    background-color: var(--beige-light);
 }
 
 .row-item {
@@ -164,7 +159,6 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .certificate-item::before {
@@ -176,16 +170,6 @@
     height: 4px;
     background: linear-gradient(90deg, var(--purple), var(--purple-light));
     transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.certificate-item:hover::before {
-    transform: scaleX(1);
-}
-
-.certificate-item:hover {
-    transform: translateY(-10px) rotateY(5deg);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .certificate-icon {
@@ -249,7 +233,6 @@
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
@@ -263,13 +246,7 @@
     height: 0;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    transition: all 0.4s ease;
     transform: translate(-50%, -50%);
-}
-
-.cta-btn:hover::before {
-    width: 300px;
-    height: 300px;
 }
 
 .cta-btn.primary {
@@ -281,11 +258,6 @@
     background: transparent;
     color: var(--white);
     border: 2px solid var(--purple-light);
-}
-
-.cta-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 /* Адаптивність */
@@ -344,10 +316,6 @@
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         overflow: hidden;
-    }
-
-    .table-row:hover {
-        background: var(--white);
     }
 
     .row-item {
@@ -471,20 +439,7 @@
 
 /* iOS Safari специфічні виправлення */
 @supports (-webkit-touch-callout: none) {
-
-    .spec-item:hover,
-    .equipment-card:hover,
-    .advantage-item:hover {
-        transform: none;
-    }
-
-    .certificate-item:hover {
-        transform: none;
-    }
-
-    .cta-btn:hover {
-        transform: none;
-    }
+    /* Прибираємо всі hover ефекти для iOS Safari */
 }
 
 /* Покращення анімацій для мобільних пристроїв */

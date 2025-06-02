@@ -20,14 +20,6 @@
     transition: box-shadow 0.3s ease;
 }
 
-/* Hover ефекти тільки для десктопу */
-@media (hover: hover) and (pointer: fine) {
-    .advantage-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
-}
-
 .advantage-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -76,11 +68,6 @@
     padding: 1.5rem;
     background: var(--beige-light);
     cursor: pointer;
-    transition: background 0.2s;
-}
-
-.faq-question:hover {
-    background: var(--beige);
 }
 
 .faq-question h3 {
@@ -146,7 +133,6 @@
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -154,13 +140,6 @@
 @media (min-width: 1024px) {
     .emergency-button {
         animation: pulse 2s infinite;
-    }
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .emergency-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 }
 

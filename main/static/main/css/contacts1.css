@@ -91,15 +91,6 @@
     padding: 1.5rem;
     background: var(--beige-light);
     border-radius: 12px;
-    transition: box-shadow 0.3s ease;
-}
-
-/* Hover ефекти тільки для десктопу */
-@media (hover: hover) and (pointer: fine) {
-    .contact-method:hover {
-        transform: translateX(5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
 }
 
 .method-icon {
@@ -131,11 +122,6 @@
     color: var(--purple);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.2s;
-}
-
-.contact-link:hover {
-    color: var(--purple-dark);
 }
 
 .contact-note {
@@ -300,13 +286,6 @@ input[type="checkbox"] {
     position: relative;
     overflow: hidden;
     -webkit-tap-highlight-color: transparent;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .form-submit:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(188, 169, 224, 0.4);
-    }
 }
 
 .submit-loader {

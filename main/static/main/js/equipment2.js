@@ -1,122 +1,155 @@
-// Equipment page JavaScript - Part 2 (CSS Styles and Additional Functions)
+// Equipment page JavaScript - Part 2
 
-// Додаткові CSS стилі для модального вікна
-const modalStyles = document.createElement('style');
-modalStyles.textContent = `
-    .certificate-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    .modal-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
-    }
-    
-    .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
-        background: var(--white);
-        border-radius: 15px;
-        max-width: 500px;
-        width: 90%;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
-    }
-    
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 2rem 2rem 1rem;
-        border-bottom: 1px solid var(--gray-light);
-    }
-    
-    .modal-header h3 {
-        color: var(--navy);
-        font-size: 1.3rem;
-        margin: 0;
-    }
-    
-    .modal-close {
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: var(--gray);
-        cursor: pointer;
-        transition: color 0.2s ease;
-    }
-    
-    .modal-close:hover {
-        color: var(--purple);
-    }
-    
-    .modal-body {
-        padding: 1rem 2rem 2rem;
-    }
-    
-    .certificate-details {
-        margin-top: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .detail-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.75rem;
-        background: var(--beige-light);
-        border-radius: 8px;
-    }
-    
-    .detail-label {
-        font-weight: 600;
-        color: var(--navy);
-    }
-    
-    .detail-value {
-        color: var(--purple);
-        font-weight: 700;
-    }
-    
-    .spec-item {
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
-        transition: opacity 0.8s ease, transform 0.8s ease;
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Додаткові анімації та покращення UX
+    function setupAdvancedAnimations() {
+        // Smooth scroll для внутрішніх посилань
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Анімація появи елементів
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Застосування observer до елементів
+        document.querySelectorAll('.spec-item, .equipment-card, .advantage-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            animationObserver.observe(el);
+        });
     }
 
-    @media (max-width: 768px) {
-        .table-row .row-item:not(.feature) {
-            position: relative;
-            padding-left: 50% !important;
+    // Оптимізація продуктивності
+    function optimizePerformance() {
+        // Відкладене завантаження зображень
+        const lazyImages = document.querySelectorAll('img[data-src]');
+
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
         }
-        
-        .table-row .row-item:not(.feature)::before {
-            content: attr(data-label) ': ';
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: 600;
-            color: var(--navy);
+
+        // Throttling для scroll events
+        let scrollThrottle = false;
+
+        window.addEventListener('scroll', () => {
+            if (!scrollThrottle) {
+                requestAnimationFrame(() => {
+                    // Scroll handling логіка тут
+                    scrollThrottle = false;
+                });
+                scrollThrottle = true;
+            }
+        });
+    }
+
+    // Адаптивність та мобільні покращення
+    function enhanceMobileExperience() {
+        // Покращена взаємодія для тач-пристроїв
+        const touchElements = document.querySelectorAll('.equipment-card, .certificate-item, .advantage-item');
+
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', function () {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.98)';
+            });
+
+            element.addEventListener('touchend', function () {
+                this.style.transition = 'transform 0.3s ease';
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Оптимізація таблиці для мобільних
+        const comparisonTable = document.querySelector('.comparison-table');
+        if (comparisonTable && window.innerWidth < 768) {
+            comparisonTable.style.fontSize = '0.9rem';
+            comparisonTable.style.overflow = 'auto';
         }
     }
-`;
-document.head.appendChild(modalStyles);
 
-// Відстеження завантаження
-console.log('Equipment page JavaScript Part 2 loaded successfully'); 
+    // Accessibility покращення
+    function improveAccessibility() {
+        // Додавання ARIA labels
+        const interactiveElements = document.querySelectorAll('.equipment-card, .certificate-item');
+
+        interactiveElements.forEach((element, index) => {
+            element.setAttribute('role', 'button');
+            element.setAttribute('tabindex', '0');
+            element.setAttribute('aria-label', `Інтерактивний елемент ${index + 1}`);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            const focusedElement = document.activeElement;
+
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (focusedElement.classList.contains('equipment-card') ||
+                    focusedElement.classList.contains('certificate-item')) {
+                    e.preventDefault();
+                    focusedElement.click();
+                }
+            }
+        });
+    }
+
+    // Ініціалізація всіх функцій
+    setupAdvancedAnimations();
+    optimizePerformance();
+    enhanceMobileExperience();
+    improveAccessibility();
+
+    // Responsive design adjustments
+    function handleResize() {
+        const screenWidth = window.innerWidth;
+        const heroSection = document.querySelector('.equipment-hero');
+
+        if (screenWidth < 768) {
+            if (heroSection) {
+                heroSection.style.minHeight = '60vh';
+            }
+        } else {
+            if (heroSection) {
+                heroSection.style.minHeight = '80vh';
+            }
+        }
+    }
+
+    // Event listeners
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial call
+
+}); 

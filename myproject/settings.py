@@ -37,6 +37,8 @@ if 'RENDER' in os.environ:
     ALLOWED_HOSTS.extend([
         '.onrender.com',
         'poligraph-0yg0.onrender.com',
+        'polygraph.website',
+        'www.polygraph.website',
         'localhost',
         '127.0.0.1',
         '*'  # Тимчасово для діагностики

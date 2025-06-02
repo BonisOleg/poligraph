@@ -217,79 +217,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Інтерактивна симуляція сертифікатів
+    // Інтерактивність сертифікатів (БЕЗ модального вікна)
     function setupCertificateInteractions() {
-        const certificates = document.querySelectorAll('.certificate-item');
+        const certificateItems = document.querySelectorAll('.certificate-item');
 
-        certificates.forEach(cert => {
-            cert.addEventListener('click', function () {
-                // Симуляція перегляду сертифіката
-                const certName = this.querySelector('h3').textContent;
-
-                // Створення модального вікна
-                showCertificateModal(certName);
+        certificateItems.forEach(item => {
+            item.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+                this.style.boxShadow = '0 8px 25px rgba(188, 169, 224, 0.4)';
             });
 
-            cert.style.cursor = 'pointer';
-        });
-    }
-
-    function showCertificateModal(certName) {
-        // Створення модального вікна для перегляду сертифікату
-        const modal = document.createElement('div');
-        modal.className = 'certificate-modal';
-        modal.innerHTML = `
-            <div class="modal-overlay"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>${certName}</h3>
-                    <button class="modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Сертифікат підтверджує нашу кваліфікацію та право проводити поліграфічні дослідження згідно з міжнародними стандартами.</p>
-                    <div class="certificate-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Номер сертифіката:</span>
-                            <span class="detail-value">UA-${Math.floor(Math.random() * 10000)}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Дата видачі:</span>
-                            <span class="detail-value">15.03.2020</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Термін дії:</span>
-                            <span class="detail-value">До 15.03.2025</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-
-        // Анімація появи
-        setTimeout(() => {
-            modal.style.opacity = '1';
-            modal.querySelector('.modal-content').style.transform = 'scale(1)';
-        }, 10);
-
-        // Закриття модального вікна
-        function closeModal() {
-            modal.style.opacity = '0';
-            modal.querySelector('.modal-content').style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                document.body.removeChild(modal);
-            }, 300);
-        }
-
-        modal.querySelector('.modal-close').addEventListener('click', closeModal);
-        modal.querySelector('.modal-overlay').addEventListener('click', closeModal);
-
-        // Escape key закриття
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
+            item.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            });
         });
     }
 

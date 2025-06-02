@@ -103,13 +103,7 @@
     padding: 1rem 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
     border-left: 4px solid var(--purple);
-}
-
-.feature-badge:hover {
-    transform: translateX(5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .feature-icon {
@@ -145,12 +139,6 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 2;
-    transition: all 0.3s ease;
-}
-
-.device-image:hover {
-    transform: scale(1.02);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
 }
 
 .device-glow {
@@ -196,7 +184,6 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .spec-item::before {
@@ -207,16 +194,6 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(188, 169, 224, 0.1), transparent);
-    transition: left 0.8s ease;
-}
-
-.spec-item:hover::before {
-    left: 100%;
-}
-
-.spec-item:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .spec-icon {
@@ -272,18 +249,11 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
     border: 1px solid var(--gray-light);
     display: flex;
     flex-direction: column;
     height: 100%;
     min-height: 280px;
-}
-
-.equipment-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    border-color: var(--purple-light);
 }
 
 .equipment-icon {
@@ -359,13 +329,7 @@
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
     border-left: 5px solid var(--purple);
-}
-
-.advantage-item:hover {
-    transform: translateX(10px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
 }
 
 .advantage-icon {
