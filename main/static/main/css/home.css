@@ -7,12 +7,28 @@
     --beige-dark: #EAD3B8;
     --white: #FFFFFF;
     --navy: #003057;
+
+    /* Анімація змінні для iOS оптимізації */
+    --ecg-animation-duration: 8s;
+    --ecg-animation-timing: linear;
+    --ecg-stroke-width: 3;
+}
+
+/* iOS Safari глобальні оптимізації */
+@supports (-webkit-touch-callout: none) {
+    :root {
+        /* Для iOS Safari використовуємо більш стабільні значення */
+        --ecg-animation-duration: 8s;
+        --ecg-animation-timing: linear;
+    }
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Глобальна оптимізація для iOS */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body.home-page {
@@ -101,12 +117,18 @@ body.home-page .main-content {
     overflow: visible;
     z-index: 0;
     transform: translateY(-50%);
+    /* iOS Safari оптимізація */
+    -webkit-transform: translateY(-50%);
+    will-change: transform;
 }
 
 .ecg-line {
     position: relative;
     width: 100%;
     height: 100%;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .ecg-svg {
@@ -116,16 +138,50 @@ body.home-page .main-content {
     width: 100%;
     height: 100%;
     transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    /* Hardware acceleration для SVG */
+    will-change: transform;
+    transform: translateY(-50%) translateZ(0);
+    -webkit-transform: translateY(-50%) translateZ(0);
 }
 
 .ecg-path {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: ecgDraw 8s infinite;
-    stroke-width: 3;
+    animation: ecgDraw var(--ecg-animation-duration) var(--ecg-animation-timing) infinite;
+    stroke-width: var(--ecg-stroke-width);
+    /* iOS Safari оптимізації */
+    -webkit-animation: ecgDraw var(--ecg-animation-duration) var(--ecg-animation-timing) infinite;
+    will-change: stroke-dashoffset;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    /* Додаткові iOS оптимізації */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 @keyframes ecgDraw {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    70% {
+        stroke-dashoffset: 0;
+    }
+
+    85% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -1000;
+    }
+}
+
+@-webkit-keyframes ecgDraw {
     0% {
         stroke-dashoffset: 1000;
     }
@@ -253,10 +309,85 @@ body.home-page .main-content {
         width: 100vw;
         max-width: 100vw;
         overflow: hidden;
+        /* Додаткова оптимізація для iOS */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
     }
 
     .ecg-svg {
         width: 100%;
         max-width: 100%;
+        /* iOS Safari SVG оптимізації */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translateY(-50%) translateZ(0);
+        transform: translateY(-50%) translateZ(0);
+    }
+
+    .ecg-path {
+        /* Більш стабільна анімація для iOS */
+        animation: ecgDraw 8s linear infinite;
+        -webkit-animation: ecgDraw 8s linear infinite;
+        animation-timing-function: linear;
+        -webkit-animation-timing-function: linear;
+        /* Забезпечуємо плавність */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        /* Оптимізація рендерингу */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+}
+
+/* Спеціальні стилі для iOS пристроїв */
+body.ios-device .ecg-container {
+    /* Додаткова стабілізація для iOS */
+    -webkit-transform: translateY(-50%) translateZ(0);
+    transform: translateY(-50%) translateZ(0);
+    will-change: transform;
+    isolation: isolate;
+}
+
+body.ios-device .ecg-svg {
+    /* Оптимізація SVG рендерингу для iOS */
+    -webkit-transform: translateY(-50%) translateZ(0);
+    transform: translateY(-50%) translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    shape-rendering: optimizeSpeed;
+}
+
+body.ios-device .ecg-path {
+    /* Максимальна стабільність анімації для iOS */
+    animation: ecgDraw var(--ecg-animation-duration) linear infinite;
+    -webkit-animation: ecgDraw var(--ecg-animation-duration) linear infinite;
+    animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: stroke-dashoffset;
+    /* Принудово використовуємо GPU */
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+/* Медіа-запит для зменшення motion для користувачів з налаштуваннями доступності */
+@media (prefers-reduced-motion: reduce) {
+    .ecg-path {
+        animation-duration: 12s;
+        -webkit-animation-duration: 12s;
+    }
+}
+
+/* Додаткові оптимізації для старих версій iOS */
+@supports (-webkit-overflow-scrolling: touch) {
+    .ecg-container {
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
     }
 }
