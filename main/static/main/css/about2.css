@@ -256,8 +256,24 @@ button.cta-btn:hover {
 }
 
 @media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     .container {
-        padding: 0 20px;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
     .hero-title {
@@ -367,6 +383,29 @@ button.cta-btn:hover {
 
 /* iOS Safari специфічні виправлення */
 @supports (-webkit-touch-callout: none) {
+    body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .container {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .timeline-content {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .reason-card::before {
+        transform: translateX(-100%) !important;
+        will-change: transform;
+    }
+
+    .reason-card:hover::before {
+        transform: translateX(0) !important;
+    }
 
     .achievement-item:hover,
     .reason-card:hover,
