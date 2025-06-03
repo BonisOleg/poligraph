@@ -176,6 +176,25 @@
     .advantage-item:nth-child(6) {
         grid-column: auto;
     }
+
+    .hero-main {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .hero-logo {
+        order: -1;
+        /* Логотип зверху на планшетах */
+    }
+
+    .main-logo-container {
+        max-width: 300px;
+    }
+
+    .main-logo-image {
+        max-width: 280px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -283,6 +302,41 @@
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
+
+    .hero-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        min-height: 50vh;
+    }
+
+    .main-logo-container {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .main-logo-image {
+        max-width: 220px;
+    }
+
+    .logo-glow {
+        width: 110%;
+        height: 110%;
+    }
+
+    /* Зменшуємо анімацію на мобільних */
+    @keyframes pulse-glow {
+
+        0%,
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.4;
+        }
+
+        50% {
+            transform: translate(-50%, -50%) scale(1.05);
+            opacity: 0.6;
+        }
+    }
 }
 
 @media (max-width: 480px) {
@@ -329,6 +383,19 @@
 
     .ticker-wrapper {
         padding: 12px 0;
+    }
+
+    .main-logo-container {
+        max-width: 200px;
+    }
+
+    .main-logo-image {
+        max-width: 180px;
+    }
+
+    .logo-glow {
+        animation: none;
+        /* Прибираємо анімацію на малих екранах */
     }
 }
 
@@ -378,6 +445,25 @@
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         -webkit-tap-highlight-color: transparent;
+    }
+
+    .main-logo-image {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .logo-glow {
+        -webkit-transform: translate(-50%, -50%) translateZ(0);
+        transform: translate(-50%, -50%) translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    /* Зменшуємо навантаження на мобільних iOS */
+    .main-logo-image:hover {
+        transform: none;
     }
 }
 
