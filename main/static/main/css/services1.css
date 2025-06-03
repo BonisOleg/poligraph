@@ -48,6 +48,96 @@
     opacity: 0.1;
 }
 
+/* Паралакс контейнер */
+.parallax-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.parallax-logo {
+    position: absolute;
+    opacity: 0.25;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+    will-change: transform;
+}
+
+.parallax-image {
+    width: 100%;
+    height: auto;
+    filter: blur(0.3px);
+    opacity: 1;
+}
+
+/* Позиції логотипів */
+.parallax-logo-1 {
+    top: 10%;
+    left: 5%;
+    width: 100px;
+    transform: rotate(-15deg);
+}
+
+.parallax-logo-2 {
+    top: 20%;
+    right: 8%;
+    width: 80px;
+    transform: rotate(25deg);
+}
+
+.parallax-logo-3 {
+    bottom: 25%;
+    left: 10%;
+    width: 90px;
+    transform: rotate(10deg);
+}
+
+.parallax-logo-4 {
+    top: 60%;
+    right: 15%;
+    width: 75px;
+    transform: rotate(-20deg);
+}
+
+.parallax-logo-5 {
+    bottom: 10%;
+    right: 5%;
+    width: 85px;
+    transform: rotate(45deg);
+}
+
+/* Додаткові ефекти для планшетів і десктопів */
+@media (min-width: 768px) {
+    .parallax-logo-1 {
+        width: 120px;
+    }
+
+    .parallax-logo-2 {
+        width: 90px;
+    }
+
+    .parallax-logo-3 {
+        width: 100px;
+    }
+
+    .parallax-logo-4 {
+        width: 85px;
+    }
+
+    .parallax-logo-5 {
+        width: 95px;
+    }
+
+    .parallax-image {
+        filter: blur(0.3px);
+        opacity: 0.9;
+    }
+}
+
 .ecg-animation {
     width: 100%;
     height: 100%;
@@ -396,5 +486,77 @@
     .service-card {
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
+    }
+}
+
+/* Hero контент з логотипом */
+.hero-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.hero-text {
+    text-align: center;
+}
+
+.hero-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-logo-container {
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-logo-image {
+    width: 100%;
+    height: auto;
+    max-width: 350px;
+    filter: drop-shadow(0 10px 25px rgba(188, 169, 224, 0.3));
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(188, 169, 224, 0.2), transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-glow 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* Hover ефект тільки для десктопу */
+@media (hover: hover) and (pointer: fine) {
+    .main-logo-image:hover {
+        transform: scale(1.05);
     }
 }

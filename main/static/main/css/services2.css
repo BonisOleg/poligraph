@@ -233,6 +233,56 @@
     .ticker {
         animation-duration: 7s;
     }
+
+    .parallax-container {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .parallax-logo {
+        opacity: 0.2;
+    }
+
+    .parallax-logo-1 {
+        width: 70px;
+        top: 15%;
+        left: 8%;
+    }
+
+    .parallax-logo-2 {
+        width: 60px;
+        top: 25%;
+        right: 12%;
+    }
+
+    .parallax-logo-3 {
+        width: 65px;
+        bottom: 30%;
+        left: 15%;
+    }
+
+    .parallax-logo-4 {
+        width: 55px;
+        top: 65%;
+        right: 20%;
+    }
+
+    .parallax-logo-5 {
+        width: 62px;
+        bottom: 15%;
+        right: 10%;
+    }
+
+    .parallax-image {
+        filter: blur(0.2px);
+        opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
 }
 
 @media (max-width: 480px) {
@@ -299,6 +349,35 @@
         backface-visibility: hidden;
         -webkit-perspective: 1000px;
         perspective: 1000px;
+    }
+
+    .parallax-container {
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .parallax-logo {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        will-change: transform;
+    }
+
+    .stat-number {
+        animation: none;
+    }
+
+    .service-button,
+    .contact-btn {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 

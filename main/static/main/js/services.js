@@ -247,6 +247,14 @@ document.addEventListener('DOMContentLoaded', function () {
     } catch (error) {
         console.warn('Animation initialization failed:', error);
     }
+
+    // Затримка для кращої продуктивності на мобільних
+    setTimeout(() => {
+        new ParallaxEffect();
+        new IOSAnimations();
+        new StatsAnimation();
+        new InteractiveEffects();
+    }, 100);
 });
 
 // CSS для ripple ефекту
@@ -279,4 +287,192 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Паралакс ефект оптимізований для мобільних пристроїв, включаючи iPhone
+class ParallaxEffect {
+    constructor() {
+        this.elements = document.querySelectorAll('.parallax-logo');
+        this.ticking = false;
+        this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (this.elements.length > 0) {
+            this.init();
+        }
+    }
+
+    init() {
+        // Використовуємо пасивні слухачі для кращої продуктивності на iOS
+        const options = { passive: true };
+
+        if (this.isMobile) {
+            // Для мобільних пристроїв використовуємо touch події
+            window.addEventListener('touchmove', this.handleScroll.bind(this), options);
+            window.addEventListener('scroll', this.handleScroll.bind(this), options);
+        } else {
+            window.addEventListener('scroll', this.handleScroll.bind(this), options);
+        }
+
+        // Початкова анімація
+        this.updateParallax();
+    }
+
+    handleScroll() {
+        if (!this.ticking) {
+            requestAnimationFrame(this.updateParallax.bind(this));
+            this.ticking = true;
+        }
+    }
+
+    updateParallax() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+
+        this.elements.forEach(element => {
+            const speed = parseFloat(element.dataset.speed) || 0.5;
+            const rect = element.getBoundingClientRect();
+
+            // Перевіряємо чи елемент видимий
+            if (rect.bottom >= 0 && rect.top <= windowHeight) {
+                // Розраховуємо зміщення з урахуванням швидкості
+                const yPos = -(scrollTop * speed);
+
+                // Для iPhone використовуємо translate3d для кращої продуктивності
+                if (this.isMobile) {
+                    element.style.transform = `translate3d(0, ${yPos}px, 0) ${element.style.transform.replace(/translate3d\([^)]*\)\s*/, '')}`;
+                } else {
+                    element.style.transform = `translateY(${yPos}px) ${element.style.transform.replace(/translateY\([^)]*\)\s*/, '')}`;
+                }
+            }
+        });
+
+        this.ticking = false;
+    }
+}
+
+// Додаткові анімації для iOS Safari
+class IOSAnimations {
+    constructor() {
+        this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        if (this.isIOS) {
+            this.initIOSOptimizations();
+        }
+    }
+
+    initIOSOptimizations() {
+        // Покращуємо плавність прокрутки
+        document.body.style.webkitOverflowScrolling = 'touch';
+
+        // Додаємо Hardware Acceleration для паралакс елементів
+        const parallaxElements = document.querySelectorAll('.parallax-logo');
+        parallaxElements.forEach(element => {
+            element.style.webkitTransform = 'translateZ(0)';
+            element.style.webkitBackfaceVisibility = 'hidden';
+            element.style.webkitPerspective = '1000px';
+        });
+
+        // Покращуємо анімації статистики для iOS
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            stat.style.webkitTransform = 'translateZ(0)';
+        });
+    }
+}
+
+// Анімації статистики
+class StatsAnimation {
+    constructor() {
+        this.statsElements = document.querySelectorAll('.stat-number');
+        this.hasAnimated = false;
+
+        if (this.statsElements.length > 0) {
+            this.init();
+        }
+    }
+
+    init() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.hasAnimated) {
+                    this.animateStats();
+                    this.hasAnimated = true;
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        this.statsElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+
+    animateStats() {
+        this.statsElements.forEach((element, index) => {
+            const finalValue = element.textContent;
+            const isPercentage = finalValue.includes('%');
+            const numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+
+            let currentValue = 0;
+            const increment = numericValue / 60; // 60 кадрів анімації
+
+            const animation = setInterval(() => {
+                currentValue += increment;
+
+                if (currentValue >= numericValue) {
+                    currentValue = numericValue;
+                    clearInterval(animation);
+                }
+
+                element.textContent = Math.floor(currentValue) + (isPercentage ? '%' : '+');
+            }, 1000 / 60); // 60 FPS
+        });
+    }
+}
+
+// Додаткові ефекти для кнопок та карток
+class InteractiveEffects {
+    constructor() {
+        this.initButtonEffects();
+        this.initCardHovers();
+    }
+
+    initButtonEffects() {
+        const buttons = document.querySelectorAll('.service-button, .contact-btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('touchstart', function () {
+                this.style.transform = 'scale(0.98)';
+            }, { passive: true });
+
+            button.addEventListener('touchend', function () {
+                this.style.transform = 'scale(1)';
+            }, { passive: true });
+        });
+    }
+
+    initCardHovers() {
+        const cards = document.querySelectorAll('.service-card');
+
+        cards.forEach(card => {
+            card.addEventListener('touchstart', function () {
+                this.style.transform = 'translateY(-2px)';
+            }, { passive: true });
+
+            card.addEventListener('touchend', function () {
+                this.style.transform = 'translateY(0)';
+            }, { passive: true });
+        });
+    }
+}
+
+// Експорт для можливого використання в інших файлах
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        ParallaxEffect,
+        IOSAnimations,
+        StatsAnimation,
+        InteractiveEffects
+    };
+} 

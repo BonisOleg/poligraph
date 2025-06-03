@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Основна форма поліграфа -->
+  <rect x="10" y="20" width="80" height="60" rx="8" stroke="#BCA9E0" stroke-width="2" fill="#F1E3D3" opacity="0.8"/>
+  
+  <!-- Екран -->
+  <rect x="20" y="30" width="60" height="30" rx="4" fill="#1E2A40"/>
+  
+  <!-- Сигнальні лінії на екрані -->
+  <path d="M25 45 L35 40 L40 50 L45 35 L50 55 L55 45 L65 40 L75 45" 
+        stroke="#BCA9E0" stroke-width="1.5" fill="none"/>
+  
+  <!-- Кнопки -->
+  <circle cx="30" cy="70" r="3" fill="#BCA9E0"/>
+  <circle cx="45" cy="70" r="3" fill="#BCA9E0"/>
+  <circle cx="60" cy="70" r="3" fill="#BCA9E0"/>
+  
+  <!-- Давачі -->
+  <circle cx="85" cy="15" r="4" fill="#BCA9E0" opacity="0.6"/>
+  <line x1="85" y1="19" x2="85" y2="30" stroke="#BCA9E0" stroke-width="1"/>
+  
+  <!-- Декоративні елементи -->
+  <path d="M15 15 Q20 10 25 15" stroke="#BCA9E0" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M75 15 Q80 10 85 15" stroke="#BCA9E0" stroke-width="1" fill="none" opacity="0.5"/>
+</svg> 
