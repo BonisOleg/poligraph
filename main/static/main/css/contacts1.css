@@ -321,3 +321,70 @@ input[type="checkbox"] {
         transform: translateZ(0);
     }
 }
+
+/* Мобільні правила для запобігання горизонтального скролу */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .contact-method {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .contact-form-section {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 1.5rem;
+        margin: 0;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form-section {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .contact-method {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .method-icon {
+        margin-bottom: 0.5rem;
+    }
+
+    .schedule {
+        padding: 1rem;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .form-submit {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}

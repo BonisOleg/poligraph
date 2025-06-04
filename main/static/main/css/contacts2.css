@@ -152,8 +152,51 @@
 }
 
 @media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     .container {
-        padding: 0 20px;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        padding: 0 15px;
+    }
+
+    .contact-grid {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .contact-form-section {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .contact-form {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .hero-title {
@@ -175,12 +218,39 @@
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 1.8rem;
+
+    html,
+    body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        padding: 0 12px;
+        max-width: 100%;
+        width: 100%;
+        margin: 0 auto;
+        overflow-x: hidden;
     }
 
     .contact-form-section {
-        padding: 1.5rem;
+        padding: 1rem;
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .contact-method {
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
     }
 
     .advantages-grid {
@@ -216,8 +286,8 @@
 /* Покращення анімацій для мобільних пристроїв */
 @media (prefers-reduced-motion: reduce) {
     * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
     }
 }

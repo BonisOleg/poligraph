@@ -7,6 +7,7 @@ from django.conf import settings
 import json
 import requests
 from datetime import datetime
+import os
 
 def home(request):
     """Головна сторінка"""
@@ -202,12 +203,16 @@ def reviews(request):
     }
     return render(request, 'main/reviews.html', context)
 
-# Telegram конфігурація
-TELEGRAM_BOT_TOKEN = '7920924607:AAF6fKUGWZYKPBX8dvOQ_bgG4cJj0XQN98o'  # Замінити на ваш токен
-TELEGRAM_CHAT_ID = '-1002428014069'  # Замінити на ваш chat_id
+# Telegram конфігурація - використовуємо змінні середовища
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '')
 
 def send_telegram_message(message):
     """Відправка повідомлення в Telegram"""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("Telegram credentials not configured")
+        return False
+        
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         data = {
@@ -216,7 +221,14 @@ def send_telegram_message(message):
             'parse_mode': 'HTML'
         }
         response = requests.post(url, data=data, timeout=10)
-        return response.status_code == 200
+        
+        if response.status_code == 200:
+            print("Telegram message sent successfully")
+            return True
+        else:
+            print(f"Telegram API error: {response.status_code}, {response.text}")
+            return False
+            
     except Exception as e:
         print(f"Telegram error: {e}")
         return False
@@ -226,6 +238,10 @@ def send_telegram_message(message):
 def send_contact_form(request):
     """API для відправки форми контактів в Telegram"""
     try:
+        # Перевіряємо чи є body у запиті
+        if not request.body:
+            return JsonResponse({'success': False, 'message': 'Порожній запит'})
+            
         data = json.loads(request.body)
         name = data.get('name', '').strip()
         phone = data.get('phone', '').strip()
@@ -236,8 +252,8 @@ def send_contact_form(request):
         if not name or len(name) < 2:
             return JsonResponse({'success': False, 'message': "Ім'я повинно містити мінімум 2 символи"})
         
-        if not phone:
-            return JsonResponse({'success': False, 'message': 'Телефон є обов\'язковим'})
+        if not phone or len(phone) < 10:
+            return JsonResponse({'success': False, 'message': 'Введіть коректний номер телефону'})
         
         # Формування повідомлення для Telegram
         telegram_message = f"""
@@ -251,19 +267,20 @@ def send_contact_form(request):
 {message if message else 'Не вказано'}
 
 📅 <b>Час:</b> {datetime.now().strftime('%d.%m.%Y %H:%M')}
+🌐 <b>Джерело:</b> Сайт поліграфолога
 """
         
         # Відправка в Telegram
         if send_telegram_message(telegram_message):
-            return JsonResponse({'success': True, 'message': 'Заявку успішно відправлено!'})
+            return JsonResponse({'success': True, 'message': 'Заявку успішно відправлено! Зв\'яжемося з вами протягом 15 хвилин.'})
         else:
-            return JsonResponse({'success': False, 'message': 'Помилка відправки. Спробуйте зателефонувати.'})
+            return JsonResponse({'success': False, 'message': 'Тимчасова помилка з\'єднання. Зателефонуйте нам: +38 (067) 524-33-54'})
             
     except json.JSONDecodeError:
-        return JsonResponse({'success': False, 'message': 'Невірний формат даних'})
+        return JsonResponse({'success': False, 'message': 'Помилка обробки даних'})
     except Exception as e:
         print(f"Contact form error: {e}")
-        return JsonResponse({'success': False, 'message': 'Внутрішня помилка сервера'})
+        return JsonResponse({'success': False, 'message': 'Виникла помилка. Спробуйте зателефонувати: +38 (067) 524-33-54'})
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -318,6 +335,9 @@ def send_review_form(request):
 def send_quick_order(request):
     """API для швидкого замовлення послуги"""
     try:
+        if not request.body:
+            return JsonResponse({'success': False, 'message': 'Порожній запит'})
+            
         data = json.loads(request.body)
         name = data.get('name', '').strip()
         phone = data.get('phone', '').strip()
@@ -327,8 +347,8 @@ def send_quick_order(request):
         if not name or len(name) < 2:
             return JsonResponse({'success': False, 'message': "Ім'я повинно містити мінімум 2 символи"})
         
-        if not phone:
-            return JsonResponse({'success': False, 'message': 'Телефон є обов\'язковим'})
+        if not phone or len(phone) < 10:
+            return JsonResponse({'success': False, 'message': 'Введіть коректний номер телефону'})
             
         if not service:
             return JsonResponse({'success': False, 'message': 'Оберіть послугу'})
@@ -342,16 +362,18 @@ def send_quick_order(request):
 🎯 <b>Послуга:</b> {service}
 
 📅 <b>Час:</b> {datetime.now().strftime('%d.%m.%Y %H:%M')}
+🌐 <b>Джерело:</b> Сайт поліграфолога
+⏰ <b>Тип:</b> Термінова заявка - передзвонити протягом 15 хвилин!
 """
         
         # Відправка в Telegram
         if send_telegram_message(telegram_message):
             return JsonResponse({'success': True, 'message': 'Замовлення прийнято! Передзвонимо протягом 15 хвилин.'})
         else:
-            return JsonResponse({'success': False, 'message': 'Помилка відправки. Зателефонуйте нам.'})
+            return JsonResponse({'success': False, 'message': 'Тимчасова помилка. Зателефонуйте: +38 (067) 524-33-54'})
             
     except json.JSONDecodeError:
-        return JsonResponse({'success': False, 'message': 'Невірний формат даних'})
+        return JsonResponse({'success': False, 'message': 'Помилка обробки даних'})
     except Exception as e:
         print(f"Quick order error: {e}")
-        return JsonResponse({'success': False, 'message': 'Внутрішня помилка сервера'}) 
+        return JsonResponse({'success': False, 'message': 'Виникла помилка. Зателефонуйте: +38 (067) 524-33-54'}) 

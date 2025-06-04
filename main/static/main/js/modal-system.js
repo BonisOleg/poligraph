@@ -622,19 +622,34 @@ class ModalSystem {
     }
 
     getCSRFToken() {
-        const name = 'csrftoken';
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
+        // Спробуємо кілька способів отримати CSRF токен
+        let token = null;
+
+        // 1. З meta тегу
+        const metaToken = document.querySelector('meta[name="csrf-token"]');
+        if (metaToken) {
+            token = metaToken.getAttribute('content');
+        }
+
+        // 2. З cookie
+        if (!token) {
             const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'csrftoken') {
+                    token = value;
                     break;
                 }
             }
         }
-        return cookieValue;
+
+        // 3. Генеруємо тимчасовий токен якщо нічого не знайдено
+        if (!token) {
+            console.warn('CSRF token not found, using fallback');
+            token = 'no-csrf-token';
+        }
+
+        return token;
     }
 
     showPrivacyPolicy() {
