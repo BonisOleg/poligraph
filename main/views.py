@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.core.mail import send_mail
 from django.conf import settings
+from django.template.loader import render_to_string
 import json
 import requests
 from datetime import datetime
@@ -376,4 +377,90 @@ def send_quick_order(request):
         return JsonResponse({'success': False, 'message': 'Помилка обробки даних'})
     except Exception as e:
         print(f"Quick order error: {e}")
-        return JsonResponse({'success': False, 'message': 'Виникла помилка. Зателефонуйте: +38 (067) 524-33-54'}) 
+        return JsonResponse({'success': False, 'message': 'Виникла помилка. Зателефонуйте: +38 (067) 524-33-54'})
+
+def robots_txt(request):
+    """Генерація robots.txt"""
+    lines = [
+        "# robots.txt для polygraph.website",
+        "# Дозволяємо індексацію всім пошуковим системам",
+        "",
+        "User-agent: *",
+        "Allow: /",
+        "",
+        "# Дозволяємо індексацію статичних ресурсів",
+        "Allow: /static/",
+        "Allow: /media/",
+        "Allow: *.css",
+        "Allow: *.js",
+        "Allow: *.png",
+        "Allow: *.jpg",
+        "Allow: *.jpeg",
+        "Allow: *.gif",
+        "Allow: *.svg",
+        "Allow: *.webp",
+        "",
+        "# Заборонені для індексації сторінки",
+        "Disallow: /admin/",
+        "Disallow: /accounts/",
+        "Disallow: /api/",
+        "Disallow: /dashboard/",
+        "Disallow: /private/",
+        "Disallow: /*?print=1",
+        "Disallow: /*?pdf=1",
+        "Disallow: /search?",
+        "Disallow: /filter?",
+        "",
+        "# Карта сайту",
+        f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
+        "",
+        "# Час сканування - не перевантажувати сервер",
+        "Crawl-delay: 1",
+        "",
+        "# Специфічні налаштування для Yandex",
+        "User-agent: Yandex",
+        "Crawl-delay: 2",
+        "Clean-param: utm_source&utm_medium&utm_campaign",
+        "",
+        "# Специфічні налаштування для Google",
+        "User-agent: Googlebot",
+        "Allow: /",
+        "Crawl-delay: 1",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
+
+def sitemap_xml(request):
+    """Генерація sitemap.xml"""
+    base_url = request.build_absolute_uri('/')[:-1]  # Видаляємо останній слеш
+    
+    urls = [
+        {'loc': f'{base_url}/', 'priority': '1.0', 'changefreq': 'weekly'},
+        {'loc': f'{base_url}/services/', 'priority': '0.9', 'changefreq': 'monthly'},
+        {'loc': f'{base_url}/about/', 'priority': '0.7', 'changefreq': 'monthly'},
+        {'loc': f'{base_url}/equipment/', 'priority': '0.6', 'changefreq': 'monthly'},
+        {'loc': f'{base_url}/contacts/', 'priority': '0.8', 'changefreq': 'monthly'},
+        {'loc': f'{base_url}/reviews/', 'priority': '0.6', 'changefreq': 'weekly'},
+    ]
+    
+    sitemap_template = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for url in urls %}
+    <url>
+        <loc>{{ url.loc }}</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <changefreq>{{ url.changefreq }}</changefreq>
+        <priority>{{ url.priority }}</priority>
+    </url>
+{% endfor %}
+</urlset>'''
+    
+    context = {
+        'urls': urls,
+        'lastmod': datetime.now().strftime('%Y-%m-%d')
+    }
+    
+    from django.template import Context, Template
+    template = Template(sitemap_template)
+    sitemap_content = template.render(Context(context))
+    
+    return HttpResponse(sitemap_content, content_type='application/xml') 

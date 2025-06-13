@@ -1,0 +1,237 @@
+<!-- SEO Мікророзмітка для polygraph.website -->
+<!-- Використовуй ці JSON-LD сніпети в head секціях відповідних сторінок -->
+
+<!-- 1. LocalBusiness - для сторінки контактів -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Поліграфолог Львів - Професійні послуги детекції брехні",
+  "image": "https://polygraph.website/static/images/office-main.jpg",
+  "description": "Професійні послуги поліграфолога у Львові. Перевірка персоналу, детекція брехні, розслідування крадіжок. Сертифікований експерт з обладнанням Rubicon.",
+  "url": "https://polygraph.website",
+  "telephone": "+380673456789",
+  "email": "info@polygraph.website",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "вул. Городоцька, 120",
+    "addressLocality": "Львів",
+    "addressRegion": "Львівська область",
+    "postalCode": "79000",
+    "addressCountry": "UA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 49.8397,
+    "longitude": 24.0297
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "10:00",
+      "closes": "16:00"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/polygraphlviv",
+    "https://www.instagram.com/polygraph_lviv",
+    "https://www.linkedin.com/company/polygraph-lviv"
+  ],
+  "priceRange": "₴₴",
+  "areaServed": {
+    "@type": "City",
+    "name": "Львів"
+  },
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 49.8397,
+      "longitude": 24.0297
+    },
+    "geoRadius": "50000"
+  }
+}
+</script>
+
+<!-- 2. Service - для сторінки "Перевірка персоналу на поліграфі" -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Перевірка персоналу на поліграфі",
+  "description": "Професійна перевірка співробітників на детекторі брехні. Скринінг при працевлаштуванні та перевірка діючого персоналу. Швидко, конфіденційно, достовірно.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Поліграфолог Львів",
+    "url": "https://polygraph.website"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Львів"
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://polygraph.website/services/employee-screening/",
+    "servicePhone": "+380673456789"
+  },
+  "category": "Детекція брехні",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Базовий скринінг персоналу",
+      "price": "2500",
+      "priceCurrency": "UAH",
+      "description": "Стандартна перевірка при працевлаштуванні - 1.5 години"
+    },
+    {
+      "@type": "Offer",
+      "name": "Розширений скринінг персоналу",
+      "price": "4000",
+      "priceCurrency": "UAH",
+      "description": "Детальна перевірка з розширеним блоком питань - 2.5 години"
+    }
+  ],
+  "serviceType": "Перевірка на поліграфі",
+  "hoursAvailable": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ]
+}
+</script>
+
+<!-- 3. FAQPage - для сторінки FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Чи можна обманути поліграф?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Сучасні поліграфи мають точність 85-95%. Обманути професійний детектор брехні практично неможливо, особливо при використанні сертифікованого обладнання Rubicon та досвідченого поліграфолога. Спроби обману легко виявляються через додаткові методики контролю."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Скільки триває перевірка на поліграфі?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Тривалість перевірки залежить від типу послуги: базовий скринінг персоналу - 1.5 години, розширений скринінг - 2.5 години, перевірка на зраду - 2 години, розслідування крадіжок - 2-3 години. Це включає попередню бесіду, саму перевірку та аналіз результатів."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чи є перевірка на поліграфі законною в Україні?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Так, перевірка на поліграфі є законною в Україні при добровільній згоді особи. Результати можуть використовуватися як додаткова інформація для прийняття рішень роботодавцем. Примусова перевірка без згоди особи заборонена законом."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- 4. Article - для статей блогу -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Як підготуватися до поліграфу? 7 порад від експерта",
+  "description": "Професійні поради поліграфолога про те, як правильно підготуватися до перевірки на детекторі брехні. Що можна і не можна робити перед тестом.",
+  "image": "https://polygraph.website/static/images/blog/polygraph-preparation.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Олексій Поліграфович",
+    "url": "https://polygraph.website/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Поліграфолог Львів",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://polygraph.website/static/images/logo.png"
+    }
+  },
+  "datePublished": "2024-01-10T09:00:00+02:00",
+  "dateModified": "2024-01-10T09:00:00+02:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://polygraph.website/blog/how-to-prepare-for-polygraph/"
+  },
+  "articleSection": "Поради експерта",
+  "wordCount": 1547,
+  "keywords": "поліграф, підготовка до поліграфу, детектор брехні, поради експерта",
+  "inLanguage": "uk-UA"
+}
+</script>
+
+<!-- 5. Organization - для всіх сторінок -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Поліграфолог Львів",
+  "url": "https://polygraph.website",
+  "logo": "https://polygraph.website/static/images/logo.png",
+  "description": "Професійні послуги поліграфолога у Львові. Член Національної Асоціації Поліграфологів України.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+380673456789",
+    "contactType": "customer service",
+    "areaServed": "UA",
+    "availableLanguage": "Ukrainian"
+  },
+  "sameAs": [
+    "https://www.facebook.com/polygraphlviv",
+    "https://www.instagram.com/polygraph_lviv",
+    "https://www.linkedin.com/company/polygraph-lviv"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "вул. Городоцька, 120",
+    "addressLocality": "Львів",
+    "addressRegion": "Львівська область",
+    "postalCode": "79000",
+    "addressCountry": "UA"
+  }
+}
+</script>
+
+<!-- 6. WebSite - для головної сторінки -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Поліграфолог Львів - Професійні послуги детекції брехні",
+  "url": "https://polygraph.website",
+  "description": "Професійні послуги поліграфолога у Львові. Перевірка персоналу, детекція брехні, розслідування крадіжок. Сертифікований експерт.",
+  "inLanguage": "uk-UA",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Поліграфолог Львів",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://polygraph.website/static/images/logo.png"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://polygraph.website/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
