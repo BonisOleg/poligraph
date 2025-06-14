@@ -128,16 +128,20 @@ body {
     border-radius: 6px;
     transition: color 0.3s ease;
     -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border: none;
 }
 
-.nav-link:hover {
-    color: var(--navy-dark);
-}
-
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active,
 .nav-link.active {
     color: var(--navy-dark);
     background: none;
     font-weight: 700;
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
 /* CTA Button */
