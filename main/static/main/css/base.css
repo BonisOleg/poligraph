@@ -296,6 +296,11 @@ body.home-page {
     text-align: center;
 }
 
+.footer-cta .footer-text {
+    text-align: justify;
+    padding: 0 1rem;
+}
+
 .footer-cta-button {
     background-color: var(--purple);
     color: var(--white);
