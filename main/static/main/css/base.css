@@ -74,6 +74,10 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+.logo-link:hover {
+    background: none;
+}
+
 .logo-text {
     font-family: 'Viaoda Libre', serif;
     font-size: 2.2rem;
@@ -107,9 +111,8 @@ body {
     gap: 8px;
     margin: 0;
     padding: 8px;
-    background-color: rgba(241, 227, 211, 0.3);
+    background: none;
     border-radius: 16px;
-    backdrop-filter: blur(10px);
 }
 
 .nav-item {
@@ -123,12 +126,18 @@ body {
     font-size: 0.95rem;
     padding: 8px 12px;
     border-radius: 6px;
+    transition: color 0.3s ease;
     -webkit-tap-highlight-color: transparent;
 }
 
+.nav-link:hover {
+    color: var(--navy-dark);
+}
+
 .nav-link.active {
-    color: var(--purple);
-    background-color: var(--beige-light);
+    color: var(--navy-dark);
+    background: none;
+    font-weight: 700;
 }
 
 /* CTA Button */
@@ -293,12 +302,21 @@ body.home-page {
     background-color: var(--navy-light);
     padding: 24px;
     border-radius: 12px;
-    text-align: center;
+    text-align: left;
 }
 
 .footer-cta .footer-text {
-    text-align: justify;
+    text-align: left;
     padding: 0 1rem;
+}
+
+.footer-cta .footer-title {
+    text-align: left;
+    margin-left: 1rem;
+}
+
+.footer-cta .footer-cta-button {
+    margin-left: 1rem;
 }
 
 .footer-cta-button {
