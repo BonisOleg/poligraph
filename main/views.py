@@ -399,6 +399,8 @@ def robots_txt(request):
         "Allow: *.gif",
         "Allow: *.svg",
         "Allow: *.webp",
+        "Allow: *.webmanifest",
+        "Allow: *.ico",
         "",
         "# Заборонені для індексації сторінки",
         "Disallow: /admin/",
@@ -410,6 +412,8 @@ def robots_txt(request):
         "Disallow: /*?pdf=1",
         "Disallow: /search?",
         "Disallow: /filter?",
+        "Disallow: /*.json$",
+        "Disallow: /test/",
         "",
         "# Карта сайту",
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
@@ -417,15 +421,25 @@ def robots_txt(request):
         "# Час сканування - не перевантажувати сервер",
         "Crawl-delay: 1",
         "",
-        "# Специфічні налаштування для Yandex",
-        "User-agent: Yandex",
-        "Crawl-delay: 2",
-        "Clean-param: utm_source&utm_medium&utm_campaign",
-        "",
         "# Специфічні налаштування для Google",
         "User-agent: Googlebot",
         "Allow: /",
         "Crawl-delay: 1",
+        "",
+        "# Специфічні налаштування для Yandex",
+        "User-agent: Yandex",
+        "Crawl-delay: 2",
+        "Clean-param: utm_source&utm_medium&utm_campaign&fbclid&gclid",
+        "",
+        "# Дозволяємо соціальним мережам",
+        "User-agent: facebookexternalhit",
+        "Allow: /",
+        "",
+        "User-agent: Twitterbot",
+        "Allow: /",
+        "",
+        "User-agent: LinkedInBot",
+        "Allow: /",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
@@ -433,34 +447,62 @@ def sitemap_xml(request):
     """Генерація sitemap.xml"""
     base_url = request.build_absolute_uri('/')[:-1]  # Видаляємо останній слеш
     
+    # Основні сторінки з оптимізованими параметрами
     urls = [
-        {'loc': f'{base_url}/', 'priority': '1.0', 'changefreq': 'weekly'},
-        {'loc': f'{base_url}/services/', 'priority': '0.9', 'changefreq': 'monthly'},
-        {'loc': f'{base_url}/about/', 'priority': '0.7', 'changefreq': 'monthly'},
-        {'loc': f'{base_url}/equipment/', 'priority': '0.6', 'changefreq': 'monthly'},
-        {'loc': f'{base_url}/contacts/', 'priority': '0.8', 'changefreq': 'monthly'},
-        {'loc': f'{base_url}/reviews/', 'priority': '0.6', 'changefreq': 'weekly'},
+        {
+            'loc': f'{base_url}/', 
+            'priority': '1.0', 
+            'changefreq': 'weekly',
+            'lastmod': datetime.now().strftime('%Y-%m-%d')
+        },
+        {
+            'loc': f'{base_url}/services/', 
+            'priority': '0.9', 
+            'changefreq': 'monthly',
+            'lastmod': datetime.now().strftime('%Y-%m-%d')
+        },
+        {
+            'loc': f'{base_url}/about/', 
+            'priority': '0.8', 
+            'changefreq': 'monthly',
+            'lastmod': datetime.now().strftime('%Y-%m-%d')
+        },
+        {
+            'loc': f'{base_url}/contacts/', 
+            'priority': '0.9', 
+            'changefreq': 'monthly',
+            'lastmod': datetime.now().strftime('%Y-%m-%d')
+        },
+        {
+            'loc': f'{base_url}/equipment/', 
+            'priority': '0.7', 
+            'changefreq': 'monthly',
+            'lastmod': datetime.now().strftime('%Y-%m-%d')
+        },
+        {
+            'loc': f'{base_url}/reviews/', 
+            'priority': '0.7', 
+            'changefreq': 'weekly',
+            'lastmod': datetime.now().strftime('%Y-%m-%d')
+        },
     ]
     
     sitemap_template = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 {% for url in urls %}
     <url>
         <loc>{{ url.loc }}</loc>
-        <lastmod>{{ lastmod }}</lastmod>
+        <lastmod>{{ url.lastmod }}</lastmod>
         <changefreq>{{ url.changefreq }}</changefreq>
         <priority>{{ url.priority }}</priority>
     </url>
 {% endfor %}
 </urlset>'''
     
-    context = {
-        'urls': urls,
-        'lastmod': datetime.now().strftime('%Y-%m-%d')
-    }
-    
     from django.template import Context, Template
     template = Template(sitemap_template)
-    sitemap_content = template.render(Context(context))
+    sitemap_content = template.render(Context({'urls': urls}))
     
     return HttpResponse(sitemap_content, content_type='application/xml') 
