@@ -9,6 +9,7 @@ import json
 import requests
 from datetime import datetime
 import os
+from django.urls import reverse
 
 def home(request):
     """Головна сторінка"""
@@ -380,129 +381,91 @@ def send_quick_order(request):
         return JsonResponse({'success': False, 'message': 'Виникла помилка. Зателефонуйте: +38 (067) 524-33-54'})
 
 def robots_txt(request):
-    """Генерація robots.txt"""
     lines = [
-        "# robots.txt для polygraph.website",
-        "# Дозволяємо індексацію всім пошуковим системам",
-        "",
         "User-agent: *",
         "Allow: /",
-        "",
-        "# Дозволяємо індексацію статичних ресурсів",
-        "Allow: /static/",
-        "Allow: /media/",
-        "Allow: *.css",
-        "Allow: *.js",
-        "Allow: *.png",
-        "Allow: *.jpg",
-        "Allow: *.jpeg",
-        "Allow: *.gif",
-        "Allow: *.svg",
-        "Allow: *.webp",
-        "Allow: *.webmanifest",
-        "Allow: *.ico",
-        "",
-        "# Заборонені для індексації сторінки",
         "Disallow: /admin/",
-        "Disallow: /accounts/",
-        "Disallow: /api/",
-        "Disallow: /dashboard/",
         "Disallow: /private/",
-        "Disallow: /*?print=1",
-        "Disallow: /*?pdf=1",
-        "Disallow: /search?",
-        "Disallow: /filter?",
-        "Disallow: /*.json$",
-        "Disallow: /test/",
         "",
-        "# Карта сайту",
-        f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
+        "# Оптимізовані сторінки для Львова",
+        "Allow: /poligrafolog-lviv/",
+        "Allow: /perevirka-na-poligrafi-lviv/",
+        "Allow: /robotodavtsyam/",
         "",
-        "# Час сканування - не перевантажувати сервер",
-        "Crawl-delay: 1",
+        "# Основні сторінки",
+        "Allow: /services/",
+        "Allow: /about/",
+        "Allow: /equipment/",
+        "Allow: /contacts/",
         "",
-        "# Специфічні налаштування для Google",
-        "User-agent: Googlebot",
-        "Allow: /",
-        "Crawl-delay: 1",
-        "",
-        "# Специфічні налаштування для Yandex",
-        "User-agent: Yandex",
-        "Crawl-delay: 2",
-        "Clean-param: utm_source&utm_medium&utm_campaign&fbclid&gclid",
-        "",
-        "# Дозволяємо соціальним мережам",
-        "User-agent: facebookexternalhit",
-        "Allow: /",
-        "",
-        "User-agent: Twitterbot",
-        "Allow: /",
-        "",
-        "User-agent: LinkedInBot",
-        "Allow: /",
+        "Sitemap: https://polygraph.website/sitemap.xml"
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
 def sitemap_xml(request):
-    """Генерація sitemap.xml"""
-    base_url = request.build_absolute_uri('/')[:-1]  # Видаляємо останній слеш
-    
-    # Основні сторінки з оптимізованими параметрами
-    urls = [
-        {
-            'loc': f'{base_url}/', 
-            'priority': '1.0', 
-            'changefreq': 'weekly',
-            'lastmod': datetime.now().strftime('%Y-%m-%d')
-        },
-        {
-            'loc': f'{base_url}/services/', 
-            'priority': '0.9', 
-            'changefreq': 'monthly',
-            'lastmod': datetime.now().strftime('%Y-%m-%d')
-        },
-        {
-            'loc': f'{base_url}/about/', 
-            'priority': '0.8', 
-            'changefreq': 'monthly',
-            'lastmod': datetime.now().strftime('%Y-%m-%d')
-        },
-        {
-            'loc': f'{base_url}/contacts/', 
-            'priority': '0.9', 
-            'changefreq': 'monthly',
-            'lastmod': datetime.now().strftime('%Y-%m-%d')
-        },
-        {
-            'loc': f'{base_url}/equipment/', 
-            'priority': '0.7', 
-            'changefreq': 'monthly',
-            'lastmod': datetime.now().strftime('%Y-%m-%d')
-        },
-        {
-            'loc': f'{base_url}/reviews/', 
-            'priority': '0.7', 
-            'changefreq': 'weekly',
-            'lastmod': datetime.now().strftime('%Y-%m-%d')
-        },
-    ]
-    
-    sitemap_template = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-{% for url in urls %}
+    xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>{{ url.loc }}</loc>
-        <lastmod>{{ url.lastmod }}</lastmod>
-        <changefreq>{{ url.changefreq }}</changefreq>
-        <priority>{{ url.priority }}</priority>
+        <loc>https://polygraph.website/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
     </url>
-{% endfor %}
-</urlset>'''
-    
-    from django.template import Context, Template
-    template = Template(sitemap_template)
-    sitemap_content = template.render(Context({'urls': urls}))
-    
-    return HttpResponse(sitemap_content, content_type='application/xml') 
+    <url>
+        <loc>https://polygraph.website/poligrafolog-lviv/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://polygraph.website/perevirka-na-poligrafi-lviv/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://polygraph.website/robotodavtsyam/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://polygraph.website/services/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://polygraph.website/about/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://polygraph.website/equipment/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://polygraph.website/contacts/</loc>
+        <lastmod>{date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>""".format(date=datetime.now().strftime('%Y-%m-%d'))
+
+    return HttpResponse(xml_content, content_type='application/xml')
+
+# Нові SEO-оптимізовані сторінки для Львова
+def poligrafolog_lviv(request):
+    """Сторінка поліграфолога у Львові"""
+    return render(request, 'main/poligrafolog_lviv.html')
+
+def perevirka_lviv(request):
+    """Сторінка перевірки на поліграфі у Львові"""
+    return render(request, 'main/perevirka_lviv.html')
+
+def robotodavtsyam(request):
+    """Сторінка для роботодавців"""
+    return render(request, 'main/robotodavtsyam.html') 

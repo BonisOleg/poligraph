@@ -8,6 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}Поліграф - Професійні послуги{% endblock %}</title>
 
+    {% block extra_head %}{% endblock %}
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="{% static 'main/images/logo1.svg' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'main/images/logo.png' %}">
@@ -126,12 +128,13 @@
                 <div class="footer-section">
                     <h3 class="footer-title">🔍 Послуги</h3>
                     <ul class="footer-list">
-                        <li><a href="#services" class="footer-link">👥 Перевірка персоналу</a></li>
-                        <li><a href="#services" class="footer-link">💼 Кандидати на роботу</a></li>
-                        <li><a href="#services" class="footer-link">💔 Перевірка зради</a></li>
-                        <li><a href="#services" class="footer-link">⚖️ Судові перевірки</a></li>
-                        <li><a href="#services" class="footer-link">🏢 Корпоративні розслідування</a></li>
-                        <li><a href="#services" class="footer-link">🔒 Конфіденційно</a></li>
+                        <li><a href="{% url 'services' %}" class="footer-link">👥 Перевірка персоналу</a></li>
+                        <li><a href="{% url 'robotodavtsyam' %}" class="footer-link">💼 Для роботодавців</a></li>
+                        <li><a href="{% url 'services' %}" class="footer-link">💔 Перевірка зради</a></li>
+                        <li><a href="{% url 'perevirka_lviv' %}" class="footer-link">🏙️ Поліграф Львів</a></li>
+                        <li><a href="{% url 'services' %}" class="footer-link">🏢 Корпоративні розслідування</a></li>
+                        <li><a href="{% url 'poligrafolog_lviv' %}" class="footer-link">👨‍⚕️ Поліграфолог Львів</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -165,6 +168,14 @@
 
             <!-- Copyright -->
             <div class="footer-bottom">
+                <div class="footer-links-row">
+                    <p class="footer-additional-links">
+                        <a href="{% url 'poligrafolog_lviv' %}" class="footer-small-link">Поліграфолог Львів</a> |
+                        <a href="{% url 'perevirka_lviv' %}" class="footer-small-link">Перевірка на поліграфі Львів</a>
+                        |
+                        <a href="{% url 'robotodavtsyam' %}" class="footer-small-link">Поліграф для роботодавців</a>
+                    </p>
+                </div>
                 <p class="footer-copyright">
                     © 2024 Послуги поліграфолога у Львові. Всі права захищено.
                 </p>

@@ -103,6 +103,16 @@
     <div class="container">
         <h2 class="section-title">Наші послуги</h2>
 
+        <div class="services-intro" style="text-align: center; margin-bottom: 40px; color: var(--gray-dark);">
+            <p>Спеціалізуємося на перевірках у Львові: <a href="{% url 'poligrafolog_lviv' %}"
+                    style="color: var(--purple); text-decoration: none;">професійний поліграфолог</a>,
+                <a href="{% url 'perevirka_lviv' %}" style="color: var(--purple); text-decoration: none;">перевірка на
+                    детекторі брехні</a> та
+                <a href="{% url 'robotodavtsyam' %}" style="color: var(--purple); text-decoration: none;">корпоративні
+                    послуги для бізнесу</a>.
+            </p>
+        </div>
+
         <div class="services-list">
             {% for service in services_list %}
             <div class="service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
