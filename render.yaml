@@ -10,7 +10,7 @@ services:
     name: poligraph
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn myproject.wsgi:application'
+    startCommand: 'python manage.py check_db --max-attempts 60 --wait-seconds 5 && python -m gunicorn myproject.wsgi:application --bind 0.0.0.0:$PORT'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
