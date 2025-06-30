@@ -93,13 +93,16 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 # Перевіряємо, чи потрібно використовувати SQLite
 if os.environ.get('USE_SQLITE') == 'true':
+    # Примусове використання SQLite
+    # На Render використовуємо /tmp для записуваних файлів
+    sqlite_path = '/tmp/db.sqlite3' if 'RENDER' in os.environ else BASE_DIR / 'db.sqlite3'
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': sqlite_path,
         }
     }
-    print("🗃️ Використовую SQLite базу даних")
+    print(f"🗃️ Використовую SQLite базу даних: {sqlite_path}")
 else:
     # Використовуємо стандартну конфігурацію dj_database_url
     DATABASES = {
@@ -108,6 +111,15 @@ else:
             conn_max_age=600
         )
     }
+    
+    # Логування типу бази даних
+    db_engine = DATABASES['default'].get('ENGINE', '')
+    if 'postgresql' in db_engine:
+        print("🐘 Використовую PostgreSQL базу даних")
+    elif 'sqlite' in db_engine:
+        print("🗃️ Використовую SQLite базу даних (за замовчуванням)")
+    else:
+        print(f"🔧 Використовую базу даних: {db_engine}")
 
 
 # Password validation

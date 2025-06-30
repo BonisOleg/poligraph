@@ -63,11 +63,11 @@ class Command(BaseCommand):
                             )
                         )
                         # Переключаємо на SQLite
-                        self._switch_to_sqlite()
+                        new_connection = self._switch_to_sqlite()
                         
                         # Спробуємо знову з SQLite
                         try:
-                            with connection.cursor() as cursor:
+                            with new_connection.cursor() as cursor:
                                 cursor.execute('SELECT 1')
                             
                             self.stdout.write('Запускаю міграції для SQLite...')
@@ -98,10 +98,16 @@ class Command(BaseCommand):
     def _switch_to_sqlite(self):
         """Переключення на SQLite базу даних"""
         from django.db import connections
+        from django.core.management import get_commands
         from pathlib import Path
+        import os
         
         # Закриваємо всі існуючі з'єднання
         connections.close_all()
+        
+        # Видаляємо DATABASE_URL щоб dj_database_url не переписував наші налаштування
+        if 'DATABASE_URL' in os.environ:
+            del os.environ['DATABASE_URL']
         
         # Оновлюємо конфігурацію бази даних
         sqlite_path = Path('/tmp/db.sqlite3')
@@ -110,4 +116,18 @@ class Command(BaseCommand):
             'NAME': str(sqlite_path),
         }
         
-        self.stdout.write(f'Використовую SQLite: {sqlite_path}') 
+        # Очищуємо кеш підключень Django
+        if hasattr(connections, '_connections'):
+            connections._connections.clear()
+        if hasattr(connections, '_settings'):
+            connections._settings.clear()
+            
+        # Перезавантажуємо модуль підключення
+        connections._databases = settings.DATABASES
+        
+        self.stdout.write(f'Використовую SQLite: {sqlite_path}')
+        
+        # Створюємо нове підключення для тестування
+        from django.db import connection
+        connection.close()
+        return connection 
